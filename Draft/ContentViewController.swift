@@ -14,22 +14,34 @@ struct ContentView: View {
     var body: some View {
             ScrollView {
                 VStack{
-                    HStack {
-                        Text("Hello")
+                    VStack {
                         Text(manager.name)
-                        Text(String(manager.totalRoster))
+                            .font(.largeTitle)
+//                        Text(String(manager.totalRoster))
                         Text("Season: \(manager.season)")
+                            .font(.title2)
                     }
-                    
-                    HStack{
-                        ForEach(manager.users , id:\.id) { user in
-                            Text(user.displayName)
-//                            Text(user.metaData.teamName)
+                    HStack {
+                        VStack {
+                            Text("Rankings")
+                                .font(.title)
+                            ForEach(manager.users , id:\.id) { user in
+                                Text(user.metaData.teamName)
+                                    .font(.body)
+                                    .fontWeight(.bold)
+                                Text(user.displayName)
+                                    .font(.body)
+                                Divider()
+                            }
                         }
+//                        VStack {
+//                            ForEach(manager.users , id:\.id) { user in
+//                                Text(user.metaData.teamName)
+//                            }
+//                        }
                     }
                 }
-            }.task
-                {
+            }.task{
                     await manager.startProcess()
                 }
     }

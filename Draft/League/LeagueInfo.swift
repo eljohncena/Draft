@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-struct LeagueInfo: Codable {
+struct LeagueInfo: Decodable {
     
     var totalRosters: Int
     var name: String

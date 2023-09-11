@@ -8,14 +8,14 @@
 import Foundation
 import SwiftUI
 
-struct UsersInfo: Codable, Identifiable {
+struct UsersInfo: Decodable, Identifiable {
     
     var userID: String
+    var metaData: MetaData
     var displayName: String
     var id = UUID()
-    var metaData: MetaData
     
-    struct MetaData: Codable{
+    struct MetaData: Decodable{
         var teamName: String
     }
         
@@ -25,7 +25,7 @@ struct UsersInfo: Codable, Identifiable {
         case metaData = "metadata"
         
         enum MetaDataCodingKeys: String, CodingKey {
-            case teamName = "team_Name"
+            case teamName = "team_name"
         }
     }
     
@@ -34,9 +34,15 @@ struct UsersInfo: Codable, Identifiable {
         userID = try container.decode(String.self, forKey: .userID)
         displayName = try container.decode(String.self, forKey: .displayName)
         
-        let MetaDataContainer = try container.nestedContainer(keyedBy: CodingKeys.MetaDataCodingKeys.self, forKey: .metaData)
-        let teamName = try MetaDataContainer.decode(String.self, forKey: .teamName)
         
-        metaData = MetaData(teamName: teamName)
+        do {
+            let MetaDataContainer = try container.nestedContainer(keyedBy: CodingKeys.MetaDataCodingKeys.self, forKey: .metaData)
+            let teamName = try MetaDataContainer.decode(String.self, forKey: .teamName)
+            
+            metaData = MetaData(teamName: teamName)
+        } catch DecodingError.keyNotFound {
+            metaData = MetaData(teamName: "No Team Name")
+        }
+        
     }
 }

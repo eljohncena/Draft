@@ -11,7 +11,7 @@
 		F32595552AAD77620027DB3D /* UsersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32595542AAD77620027DB3D /* UsersInfo.swift */; };
 		F34EEFF82AA16F0C004E22AC /* LeagueInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */; };
 		F34EEFFA2AA17313004E22AC /* LeagueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF92AA17313004E22AC /* LeagueController.swift */; };
-		F34EEFFC2AA17618004E22AC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFFB2AA17618004E22AC /* ViewController.swift */; };
+		F34EEFFC2AA17618004E22AC /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFFB2AA17618004E22AC /* UsersViewController.swift */; };
 		F3A7DC182A9FB57900496553 /* DraftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A7DC172A9FB57900496553 /* DraftApp.swift */; };
 		F3A7DC1A2A9FB57900496553 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A7DC192A9FB57900496553 /* ContentViewController.swift */; };
 		F3A7DC1C2A9FB57A00496553 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A7DC1B2A9FB57A00496553 /* Assets.xcassets */; };
@@ -23,7 +23,7 @@
 		F32595542AAD77620027DB3D /* UsersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersInfo.swift; sourceTree = "<group>"; };
 		F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueInfo.swift; sourceTree = "<group>"; };
 		F34EEFF92AA17313004E22AC /* LeagueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueController.swift; sourceTree = "<group>"; };
-		F34EEFFB2AA17618004E22AC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F34EEFFB2AA17618004E22AC /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		F3A7DC142A9FB57900496553 /* Draft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Draft.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3A7DC172A9FB57900496553 /* DraftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftApp.swift; sourceTree = "<group>"; };
 		F3A7DC192A9FB57900496553 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
@@ -42,18 +42,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F325952F2AAD48410027DB3D /* New Group */ = {
+		F325952F2AAD48410027DB3D /* League */ = {
 			isa = PBXGroup;
 			children = (
 				F34EEFF92AA17313004E22AC /* LeagueController.swift */,
-				F34EEFFB2AA17618004E22AC /* ViewController.swift */,
+				F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */,
 			);
-			path = "New Group";
+			path = League;
 			sourceTree = "<group>";
 		};
 		F32595562AAD77690027DB3D /* Users */ = {
 			isa = PBXGroup;
 			children = (
+				F34EEFFB2AA17618004E22AC /* UsersViewController.swift */,
 				F32595522AAD771C0027DB3D /* UsersController.swift */,
 				F32595542AAD77620027DB3D /* UsersInfo.swift */,
 			);
@@ -80,10 +81,9 @@
 			isa = PBXGroup;
 			children = (
 				F3A7DC172A9FB57900496553 /* DraftApp.swift */,
-				F32595562AAD77690027DB3D /* Users */,
 				F3A7DC192A9FB57900496553 /* ContentViewController.swift */,
-				F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */,
-				F325952F2AAD48410027DB3D /* New Group */,
+				F32595562AAD77690027DB3D /* Users */,
+				F325952F2AAD48410027DB3D /* League */,
 				F3A7DC1B2A9FB57A00496553 /* Assets.xcassets */,
 				F3A7DC1D2A9FB57A00496553 /* Preview Content */,
 			);
@@ -169,7 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F32595532AAD771C0027DB3D /* UsersController.swift in Sources */,
-				F34EEFFC2AA17618004E22AC /* ViewController.swift in Sources */,
+				F34EEFFC2AA17618004E22AC /* UsersViewController.swift in Sources */,
 				F34EEFFA2AA17313004E22AC /* LeagueController.swift in Sources */,
 				F32595552AAD77620027DB3D /* UsersInfo.swift in Sources */,
 				F34EEFF82AA16F0C004E22AC /* LeagueInfo.swift in Sources */,
