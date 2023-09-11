@@ -12,9 +12,9 @@ import UIKit
 
 struct LeagueInfo: Decodable {
     
-    var totalRosters: Int
-    var name: String
-    var season: String
+    var totalRosters: Int = 0
+    var name: String = ""
+    var season: String = ""
     
     enum CodingKeys: String, CodingKey {
         case totalRosters = "total_rosters"

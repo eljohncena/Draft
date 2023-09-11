@@ -1,55 +1,85 @@
 //
-//  ContentView.swift
+//  ContentViewController.swift
 //  test
 //
 //  Created by John Chavez on 9/9/23.
 //
 
+import Foundation
 import SwiftUI
 
-struct ContentView: View {
-    
-    @StateObject var manager = ContentViewController()    
-    
-    var body: some View {
-            ScrollView {
-                VStack{
-                    VStack {
-                        Text(manager.name)
-                            .font(.largeTitle)
-//                        Text(String(manager.totalRoster))
-                        Text("Season: \(manager.season)")
-                            .font(.title2)
-                    }
-                    HStack {
-                        VStack {
-                            Text("Rankings")
-                                .font(.title)
-                            ForEach(manager.users , id:\.id) { user in
-                                Text(user.metaData.teamName)
-                                    .font(.body)
-                                    .fontWeight(.bold)
-                                Text(user.displayName)
-                                    .font(.body)
-                                Divider()
-                            }
-                        }
-//                        VStack {
-//                            ForEach(manager.users , id:\.id) { user in
-//                                Text(user.metaData.teamName)
-//                            }
-//                        }
-                    }
-                }
-            }.task{
-                    await manager.startProcess()
-                }
-    }
-}
+@MainActor
+class ContentViewController: ObservableObject{
+    let leagueController = LeagueController()
+    let userController = UsersController()
+    let rosterController = RostersController()
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+    @Published var name = ""
+    @Published var totalRoster = 0
+    @Published var season = ""
+    @Published var users: [UsersInfo] = []
+    @Published var rosters: [RostersInfo] = []
+    
+    enum ViewControllerError: Error {
+        case localizedError
+        case fetchFailed
     }
-}
 
+    func startProcess() async {
+
+        var info:LeagueInfo
+        var userInfo: [UsersInfo]
+        var rosterInfo: [RostersInfo]
+        do {
+
+            info = try await leagueController.fetchLeagueInfo()
+
+            DispatchQueue.main.async {
+                self.totalRoster = info.totalRosters
+                self.name = info.name
+                self.season = info.season
+            }
+
+
+        } catch {
+            print("League info process failed: \(ViewControllerError.localizedError)")
+            }
+
+            print("League info process and decode successful")
+
+        do {
+
+            userInfo = try await userController.fetchUsersInfo()
+
+            DispatchQueue.main.async {
+                self.users = userInfo
+
+            }
+
+
+        } catch {
+
+            print("User info process failed \(ViewControllerError.localizedError)")
+        }
+
+        do {
+
+            rosterInfo = try await rosterController.fetchRostersInfo()
+            DispatchQueue.main.async {
+                self.rosters = rosterInfo
+            }
+
+
+        } catch {
+            print("Roster info process failed: \(ViewControllerError.localizedError)")
+            }
+
+
+            print("User info process and decode successful")
+
+            print(users)
+            print(totalRoster)
+            print(name)
+
+        }
+}

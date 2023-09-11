@@ -10,13 +10,13 @@ import SwiftUI
 
 struct UsersInfo: Decodable, Identifiable {
     
-    var userID: String
+    var userID: String = ""
     var metaData: MetaData
-    var displayName: String
+    var displayName: String = ""
     var id = UUID()
     
     struct MetaData: Decodable{
-        var teamName: String
+        var teamName: String = ""
     }
         
     enum CodingKeys: String, CodingKey {

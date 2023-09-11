@@ -11,11 +11,14 @@
 		F32595552AAD77620027DB3D /* UsersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32595542AAD77620027DB3D /* UsersInfo.swift */; };
 		F34EEFF82AA16F0C004E22AC /* LeagueInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */; };
 		F34EEFFA2AA17313004E22AC /* LeagueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF92AA17313004E22AC /* LeagueController.swift */; };
-		F34EEFFC2AA17618004E22AC /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFFB2AA17618004E22AC /* UsersViewController.swift */; };
+		F34EEFFC2AA17618004E22AC /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFFB2AA17618004E22AC /* ContentViewController.swift */; };
 		F3A7DC182A9FB57900496553 /* DraftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A7DC172A9FB57900496553 /* DraftApp.swift */; };
-		F3A7DC1A2A9FB57900496553 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A7DC192A9FB57900496553 /* ContentViewController.swift */; };
+		F3A7DC1A2A9FB57900496553 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A7DC192A9FB57900496553 /* ContentView.swift */; };
 		F3A7DC1C2A9FB57A00496553 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A7DC1B2A9FB57A00496553 /* Assets.xcassets */; };
 		F3A7DC1F2A9FB57A00496553 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A7DC1E2A9FB57A00496553 /* Preview Assets.xcassets */; };
+		F3EC57432AAEC52800E519EC /* RostersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57422AAEC52800E519EC /* RostersInfo.swift */; };
+		F3EC57452AAEC79600E519EC /* RosterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57442AAEC79600E519EC /* RosterController.swift */; };
+		F3EC57532AAEF9DC00E519EC /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57522AAEF9DC00E519EC /* UserData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,12 +26,15 @@
 		F32595542AAD77620027DB3D /* UsersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersInfo.swift; sourceTree = "<group>"; };
 		F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueInfo.swift; sourceTree = "<group>"; };
 		F34EEFF92AA17313004E22AC /* LeagueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueController.swift; sourceTree = "<group>"; };
-		F34EEFFB2AA17618004E22AC /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
+		F34EEFFB2AA17618004E22AC /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		F3A7DC142A9FB57900496553 /* Draft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Draft.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3A7DC172A9FB57900496553 /* DraftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftApp.swift; sourceTree = "<group>"; };
-		F3A7DC192A9FB57900496553 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		F3A7DC192A9FB57900496553 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F3A7DC1B2A9FB57A00496553 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3A7DC1E2A9FB57A00496553 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F3EC57422AAEC52800E519EC /* RostersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RostersInfo.swift; sourceTree = "<group>"; };
+		F3EC57442AAEC79600E519EC /* RosterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterController.swift; sourceTree = "<group>"; };
+		F3EC57522AAEF9DC00E519EC /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +60,6 @@
 		F32595562AAD77690027DB3D /* Users */ = {
 			isa = PBXGroup;
 			children = (
-				F34EEFFB2AA17618004E22AC /* UsersViewController.swift */,
 				F32595522AAD771C0027DB3D /* UsersController.swift */,
 				F32595542AAD77620027DB3D /* UsersInfo.swift */,
 			);
@@ -81,9 +86,10 @@
 			isa = PBXGroup;
 			children = (
 				F3A7DC172A9FB57900496553 /* DraftApp.swift */,
-				F3A7DC192A9FB57900496553 /* ContentViewController.swift */,
-				F32595562AAD77690027DB3D /* Users */,
-				F325952F2AAD48410027DB3D /* League */,
+				F3A7DC192A9FB57900496553 /* ContentView.swift */,
+				F3EC57522AAEF9DC00E519EC /* UserData.swift */,
+				F34EEFFB2AA17618004E22AC /* ContentViewController.swift */,
+				F3EC574F2AAED77000E519EC /* API Calls */,
 				F3A7DC1B2A9FB57A00496553 /* Assets.xcassets */,
 				F3A7DC1D2A9FB57A00496553 /* Preview Content */,
 			);
@@ -96,6 +102,25 @@
 				F3A7DC1E2A9FB57A00496553 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F3EC57462AAEC7D900E519EC /* Rosters */ = {
+			isa = PBXGroup;
+			children = (
+				F3EC57422AAEC52800E519EC /* RostersInfo.swift */,
+				F3EC57442AAEC79600E519EC /* RosterController.swift */,
+			);
+			path = Rosters;
+			sourceTree = "<group>";
+		};
+		F3EC574F2AAED77000E519EC /* API Calls */ = {
+			isa = PBXGroup;
+			children = (
+				F3EC57462AAEC7D900E519EC /* Rosters */,
+				F32595562AAD77690027DB3D /* Users */,
+				F325952F2AAD48410027DB3D /* League */,
+			);
+			path = "API Calls";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,12 +193,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3EC57452AAEC79600E519EC /* RosterController.swift in Sources */,
 				F32595532AAD771C0027DB3D /* UsersController.swift in Sources */,
-				F34EEFFC2AA17618004E22AC /* UsersViewController.swift in Sources */,
+				F34EEFFC2AA17618004E22AC /* ContentViewController.swift in Sources */,
+				F3EC57432AAEC52800E519EC /* RostersInfo.swift in Sources */,
 				F34EEFFA2AA17313004E22AC /* LeagueController.swift in Sources */,
 				F32595552AAD77620027DB3D /* UsersInfo.swift in Sources */,
 				F34EEFF82AA16F0C004E22AC /* LeagueInfo.swift in Sources */,
-				F3A7DC1A2A9FB57900496553 /* ContentViewController.swift in Sources */,
+				F3A7DC1A2A9FB57900496553 /* ContentView.swift in Sources */,
+				F3EC57532AAEF9DC00E519EC /* UserData.swift in Sources */,
 				F3A7DC182A9FB57900496553 /* DraftApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
