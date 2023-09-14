@@ -10,15 +10,16 @@ import Foundation
 struct RostersInfo: Decodable {
     
     var settings: Settings
+    var rosterID: Int = 0
+    var userID: String = ""
+    
     
     struct Settings: Decodable {
-        var wins: Int
-        var ties: Int
-        var losses: Int
+        var wins: Int = 0
+        var ties: Int = 0
+        var losses: Int = 0
     }
     
-    var rosterID: Int
-    var userID: String
     
     enum CodingKeys: String, CodingKey {
         case rosterID = "roster_id"
@@ -35,7 +36,13 @@ struct RostersInfo: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        rosterID = try container.decode(Int.self, forKey: .rosterID)
+        do {
+            rosterID = try container.decode(Int.self, forKey: .rosterID)
+        }catch DecodingError.keyNotFound {
+            rosterID = 0
+            print("Failed to fetch RosterId")
+        }
+        
         userID = try container.decode(String.self, forKey: .userID)
         
         
@@ -48,6 +55,17 @@ struct RostersInfo: Decodable {
             settings = Settings(wins: wins, ties: ties, losses: losses)
         } catch DecodingError.keyNotFound {
             settings = Settings(wins: 0, ties: 0, losses: 0)
+            print("Error decoding Roster Keys")
         }
+        
     }
 }
+
+extension RostersInfo {
+    init(settings: Settings, rosterID: Int, userID: String) {
+        self.settings = settings
+        self.rosterID = rosterID
+        self.userID = userID
+    }
+}
+

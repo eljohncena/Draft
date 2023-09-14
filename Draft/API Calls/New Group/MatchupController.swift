@@ -1,32 +1,31 @@
 //
-//  RosterController.swift
+//  MatchupController.swift
 //  Draft
 //
-//  Created by John Chavez on 9/10/23.
+//  Created by John Chavez on 9/12/23.
 //
-
 
 import Foundation
 import SwiftUI
 
-class RostersController {
+class MatchupsController {
     
-    enum RostersControllerError: Error, LocalizedError {
+    enum MatchupsControllerError: Error, LocalizedError {
         case itemNotFound
         case decodingFailed
         
     }
     
-    func fetchRostersInfo() async throws -> [RostersInfo] {
+    func fetchMatchupsInfo() async throws -> [MatchupsInfo] {
         
-        let urlComponents = URLComponents(string: "https://api.sleeper.app/v1/league/989252508654567424/rosters")!
+        let urlComponents = URLComponents(string: "https://api.sleeper.app/v1/league/989252508654567424/matchups/1")!
         
         let (data,response) = try await URLSession.shared.data(from: urlComponents.url!)
         
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            print("Failed to fetch JSON Roster")
-            throw RostersControllerError.itemNotFound
+            print("Failed to fetch Matchups")
+            throw MatchupsControllerError.itemNotFound
             }
         
         print(httpResponse.statusCode)
@@ -37,17 +36,18 @@ class RostersController {
 //        case 500: print("Internal Server Error")
 //        case 503: print("Service unavailable; offline for maintenance")
         
-        var decodedResponse:[RostersInfo] = []
+        var decodedResponse:[MatchupsInfo] = []
         do {
             
-            decodedResponse = try JSONDecoder().decode([RostersInfo].self, from: data)
+            decodedResponse = try JSONDecoder().decode([MatchupsInfo].self, from: data)
             return decodedResponse
         }
         catch {
             print(error)
+            print("Failed to Decode in MatchupController")
         }
 
-        print("JSON Roster decode successful")
+        print("JSON Matchups decode successful")
         return decodedResponse
         
     }

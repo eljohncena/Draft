@@ -46,3 +46,11 @@ struct UsersInfo: Decodable, Identifiable {
         
     }
 }
+
+extension UsersInfo {
+    init(userID: String, displayName: String, metaData: MetaData) {
+        self.userID = userID
+        self.displayName = displayName
+        self.metaData = metaData
+    }
+}
