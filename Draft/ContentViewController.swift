@@ -20,6 +20,7 @@ class ContentViewController: ObservableObject{
     @Published var season = ""
     @Published var users: [UsersInfo] = []
     @Published var rosters: [RostersInfo] = []
+    @Published var week: Int = 0
     
     @Published var usersWithInfo:[UsersWithInfo] = []
     @Published var matchups: [MatchupsInfo] = []
@@ -45,7 +46,21 @@ class ContentViewController: ObservableObject{
                 self.totalRoster = info.totalRosters
                 self.name = info.name
                 self.season = info.season
+                self.week = info.settings.leg
             }
+            
+            do {
+                let matchupsInfo = try await matchupController.fetchMatchupsInfo(week: info.settings.leg)
+                DispatchQueue.main.async {
+                    self.matchups = matchupsInfo
+                    
+                }
+            } catch {
+                print("Matchups info process failes \(ViewControllerError.localizedError)")
+            }
+            
+            
+            print("User Matchup process and decode successful")
             
             
         } catch {
@@ -82,20 +97,6 @@ class ContentViewController: ObservableObject{
             print("Roster info process failed: \(ViewControllerError.localizedError)")
         }
         print("Roster Roster process and decode successful")
-        
-        do {
-            let matchupsInfo = try await matchupController.fetchMatchupsInfo()
-            DispatchQueue.main.async {
-                self.matchups = matchupsInfo
-                
-                //                self.usersWithInfo = self.combineUsersAndRosters()
-            }
-        } catch {
-            print("Matchups info process failes \(ViewControllerError.localizedError)")
-        }
-        
-        
-        print("User Matchup process and decode successful")
         
     }
 

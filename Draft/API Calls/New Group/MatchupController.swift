@@ -16,9 +16,9 @@ class MatchupsController {
         
     }
     
-    func fetchMatchupsInfo() async throws -> [MatchupsInfo] {
+    func fetchMatchupsInfo(week: Int) async throws -> [MatchupsInfo] {
         
-        let urlComponents = URLComponents(string: "https://api.sleeper.app/v1/league/989252508654567424/matchups/1")!
+        let urlComponents = URLComponents(string: "https://api.sleeper.app/v1/league/989252508654567424/matchups/\(week)")!
         
         let (data,response) = try await URLSession.shared.data(from: urlComponents.url!)
         
