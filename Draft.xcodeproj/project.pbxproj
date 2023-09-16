@@ -56,6 +56,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F3164CCB2AB4DE1D00D54775 /* UserCombineStructs */ = {
+			isa = PBXGroup;
+			children = (
+				F3EC57522AAEF9DC00E519EC /* UserWithInfo.swift */,
+				F3FED9E02AB0A45B0092BC60 /* UsersAndMatchups.swift */,
+			);
+			path = UserCombineStructs;
+			sourceTree = "<group>";
+		};
 		F325952F2AAD48410027DB3D /* League */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,9 +114,8 @@
 				F3A7DC172A9FB57900496553 /* DraftApp.swift */,
 				F3A7DC192A9FB57900496553 /* ContentView.swift */,
 				F3269FF72AAFF4620014A35A /* TeamInfoView.swift */,
-				F3EC57522AAEF9DC00E519EC /* UserWithInfo.swift */,
-				F3FED9E02AB0A45B0092BC60 /* UsersAndMatchups.swift */,
 				F34EEFFB2AA17618004E22AC /* ContentViewController.swift */,
+				F3164CCB2AB4DE1D00D54775 /* UserCombineStructs */,
 				F3EC574F2AAED77000E519EC /* API Calls */,
 				F3A7DC1B2A9FB57A00496553 /* Assets.xcassets */,
 				F3A7DC1D2A9FB57A00496553 /* Preview Content */,

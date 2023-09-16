@@ -55,7 +55,7 @@ struct RostersInfo: Decodable {
             settings = Settings(wins: wins, ties: ties, losses: losses)
         } catch DecodingError.keyNotFound {
             settings = Settings(wins: 0, ties: 0, losses: 0)
-            print("Error decoding Roster Keys")
+            print("Error decoding Settings Keys")
         }
         
     }

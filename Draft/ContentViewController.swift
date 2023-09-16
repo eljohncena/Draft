@@ -49,6 +49,8 @@ class ContentViewController: ObservableObject{
                 self.week = info.settings.leg
             }
             
+            print("League info process and decode successful")
+            
             do {
                 let matchupsInfo = try await matchupController.fetchMatchupsInfo(week: info.settings.leg)
                 DispatchQueue.main.async {
@@ -66,8 +68,7 @@ class ContentViewController: ObservableObject{
         } catch {
             print("League info process failed: \(ViewControllerError.localizedError)")
         }
-        
-        print("League info process and decode successful")
+
         
         do {
             

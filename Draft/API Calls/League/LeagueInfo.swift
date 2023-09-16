@@ -36,14 +36,18 @@ struct LeagueInfo: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.totalRosters = try container.decode(Int.self, forKey: .totalRosters)
         self.name = try container.decode(String.self, forKey: .name)
-        self.name = try container.decode(String.self, forKey: .season)
+        self.season = try container.decode(String.self, forKey: .season)
         
-        let settingsContainer = try container.nestedContainer(keyedBy: CodingKeys.SettingsCodingKeys.self, forKey: .settings)
-        let leg = try settingsContainer.decode(Int.self, forKey: .leg )
-        
-        settings = Settings(leg: leg)
-        
-        
+        do {
+            
+            let settingsContainer = try container.nestedContainer(keyedBy: CodingKeys.SettingsCodingKeys.self, forKey: .settings)
+            let leg = try settingsContainer.decode(Int.self, forKey: .leg )
+            settings = Settings(leg: leg)
+        } catch DecodingError.keyNotFound {
+            print("Error Decoding LeagueInfo leg")
+            settings = Settings(leg: 0)
+        }
+
     }
     
 }
