@@ -7,12 +7,20 @@
 //
 import Foundation
 
-struct UsersWithInfo{
-
+struct UsersWithInfo: Hashable{
+    static func == (lhs: UsersWithInfo, rhs: UsersWithInfo) -> Bool {
+        return lhs.user == rhs.user && lhs.userGameWinLossTie == rhs.userGameWinLossTie
+    }
     
-    let user: UsersInfo
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(user)
+        hasher.combine(userGameWinLossTie)
+    }
+    
+    var user: UsersInfo
 
-    let userGameWinLossTie: RostersInfo
+    var userGameWinLossTie: RostersInfo
 
     init(user: UsersInfo, userGameWinLossTie: RostersInfo) {
         self.user = user

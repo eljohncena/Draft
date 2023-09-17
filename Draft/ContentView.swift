@@ -14,71 +14,88 @@ struct ContentView: View {
         VStack{
             Text("\(manager.name)")
                 .font(.largeTitle)
-            Text(String("Total Players: \(manager.totalRoster)"))
-            Text("Season: \(manager.season)")
-                .font(.title2)
-            Text("Week: \(manager.week)")
-//              Add this bottom stack together so Name and and season arent static
-        //  Potentially Team on Left and Opponent on right
-        //  could also create static menu to be able to switch to favorite team and see stats
-        // add accesibility tags. Review App Store guideline.
-            VStack{
+//            Text(String("Total Players: \(manager.totalRoster)"))
+//            Text("Season: \(manager.season)")
+            HStack{
+                
+                Text("Week \(manager.week) Matchups")
+                    .font(.title2)
+                    .padding(.bottom, 10)
+                // drop down menu to select week as well a buttons on both sides to go to each week
+                }
+            
 
-                let userAndRoster = manager.combineUsersAndRosters()
-                let combinedUserInfo = manager.combineUsersAndMatchups(usersAndRosters: userAndRoster)
+        // Static menu or Navigation Split to be able to switch to favorite team and see stats
+            // maybe Navigation SplitView
+        // Add accesibility tags. Review App Store guideline.
+//            VStack{
+
+            let userAndRoster = manager.combineUsersAndRosters()
+            let combinedUserInfo = manager.combineUsersAndMatchups(usersAndRosters: userAndRoster)
                 
                 
-                NavigationView {
-                    List(combinedUserInfo.sorted{$0.matchups.points > $1.matchups.points}) { user in
-                        NavigationLink(destination: TeamInfoView(userTeamInfo: user)){
-                            VStack{
-                                Text(user.usersAndRosters.user.metaData.teamName)
-                                    .font(.body)
-                                    .fontWeight(.bold)
+                // add user avatars above team names
+
+            NavigationStack{
+                List{
+                    ForEach(combinedUserInfo.sorted{$0.matchups.points > $1.matchups.points}) { user in
+                        NavigationLink(value: user){
+                            HStack{
                                 HStack{
-                                    Text("\(user.usersAndRosters.userGameWinLossTie.settings.wins) - \(user.usersAndRosters.userGameWinLossTie.settings.ties) - \(user.usersAndRosters.userGameWinLossTie.settings.losses)")
-                                        .font(.subheadline)
+                                    VStack{
+                                        Text(user.usersAndRosters.user.metaData.teamName)
+                                            .fontWeight(.bold)
+                                        HStack{
+                                            Text("\(user.usersAndRosters.userGameWinLossTie.settings.wins) - \(user.usersAndRosters.userGameWinLossTie.settings.ties) - \(user.usersAndRosters.userGameWinLossTie.settings.losses)")
+                                                .font(.subheadline)
+                                        }
+                                        Text("Points for: \(String(format: "%.2f", user.matchups.points))")
                                     }
-                                Text("Points for: \(String(format: "%.2f", user.matchups.points))")
-                                
-
-                                
-                                ForEach(combinedUserInfo.filter{$0.matchups.matchupID == user.matchups.matchupID}) { opponent in
-                                    if user.usersAndRosters.user.metaData.teamName != opponent.usersAndRosters.user.metaData.teamName {
-                                        Text("Opponent: \(opponent.usersAndRosters.user.metaData.teamName)")
-                                    }
-                                    
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                }
+                                HStack{
+                                    Text("VS")
+                                }
+                                .frame(minWidth: 10, alignment: .center)
+                                HStack{
+                                    ForEach(combinedUserInfo.filter{$0.matchups.matchupID == user.matchups.matchupID}) { opponent in
+                                        if user.usersAndRosters.user.metaData.teamName != opponent.usersAndRosters.user.metaData.teamName {
+                                            VStack{
+                                                Text(opponent.usersAndRosters.user.metaData.teamName)
+                                                    .fontWeight(.bold)
+                                                HStack{
+                                                    Text("\(opponent.usersAndRosters.userGameWinLossTie.settings.wins) - \(opponent.usersAndRosters.userGameWinLossTie.settings.ties) - \(opponent.usersAndRosters.userGameWinLossTie.settings.losses)")
+                                                        .font(.subheadline)
+                                                }
+                                                Text("Points for: \(String(format: "%.2f", opponent.matchups.points))")
+                                            }
+                                            .frame(maxWidth: .infinity, alignment: .center)
+                                        }
                                     }
                                 }
-                            .frame(maxWidth: .infinity, alignment: .center)
                             }
-                            .navigationTitle("Teams")
-                            .navigationBarTitleDisplayMode(.inline)
+                        }
+                }
+
+            }
+                .padding([.top, .bottom], 10)
+                .navigationDestination(for: UsersAndMatchups.self) { user in
+                    VStack{
+                        Text(user.usersAndRosters.user.metaData.teamName)
                         }
                     }
+
+        }
+
+//            UIBlurEffect.Style.systemThinMaterial
+//            Look up how to confim to View
+                
                     
-                    
-//                      I need to convert this to navigation stack later. Unsure why code below isnt working. Alterneatives require
-//                        all structs to become Hashable however it then requires "user" to become Binding Bool type; user is type                                  UsersWithInfo
-//
-//                        NavigationStack{
-//                            ForEach(users, id:\.user.id) { user in
-//
-//                                NavigationLink(destination: TeamInfoView(userTeamInfo: user)) {
-//                                    Text("Wins: \(user.userGameWinLossTie.wins)")
-//                                }
-//                            }
-//
-////                            .navigationDestination(for: UsersWithInfo.self) { user in
-////                                TeamInfoView(userTeamInfo: user)
-////                            }
-//                        }
-                    }
-                    
-                }.task{
-                    await manager.startProcess()
-                }
+        }.task{
+            await manager.startProcess()
+        }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

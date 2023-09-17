@@ -8,14 +8,23 @@
 import Foundation
 import SwiftUI
 
-struct UsersInfo: Decodable, Identifiable {
+struct UsersInfo: Decodable, Identifiable, Hashable {
+    static func == (lhs: UsersInfo, rhs: UsersInfo) -> Bool {
+        return lhs.userID == rhs.userID && lhs.metaData == rhs.metaData && lhs.displayName == rhs.displayName
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(userID)
+        hasher.combine(metaData)
+        hasher.combine(displayName)
+    }
     
     var userID: String = ""
     var metaData: MetaData
     var displayName: String = ""
     var id = UUID()
     
-    struct MetaData: Decodable{
+    struct MetaData: Decodable, Hashable{
         var teamName: String = ""
     }
         

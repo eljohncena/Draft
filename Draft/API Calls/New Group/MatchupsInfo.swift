@@ -8,7 +8,18 @@
 import Foundation
 import SwiftUI
 
-struct MatchupsInfo: Decodable {
+struct MatchupsInfo: Decodable, Hashable {
+    
+    static func == (lhs: MatchupsInfo, rhs: MatchupsInfo) -> Bool {
+        return lhs.rosterID == rhs.rosterID && lhs.points == rhs.points && lhs.matchupID == rhs.matchupID
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(rosterID)
+        hasher.combine(points)
+        hasher.combine(matchupID)
+    }
+    
     
     var rosterID: Int = 0
     var points: Float = 0.00

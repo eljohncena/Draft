@@ -7,14 +7,24 @@
 
 import Foundation
 
-struct RostersInfo: Decodable {
+struct RostersInfo: Decodable, Hashable {
+    static func == (lhs: RostersInfo, rhs: RostersInfo) -> Bool {
+        return lhs.settings == rhs.settings && lhs.rosterID == rhs.rosterID && lhs.userID == rhs.userID
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(settings)
+        hasher.combine(rosterID)
+        hasher.combine(userID)
+    }
+    
     
     var settings: Settings
     var rosterID: Int = 0
     var userID: String = ""
     
     
-    struct Settings: Decodable {
+    struct Settings: Decodable, Hashable {
         var wins: Int = 0
         var ties: Int = 0
         var losses: Int = 0

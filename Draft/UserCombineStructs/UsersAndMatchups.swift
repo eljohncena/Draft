@@ -7,7 +7,17 @@
 
 import Foundation
 
-struct UsersAndMatchups: Identifiable {
+struct UsersAndMatchups: Identifiable, Hashable {
+    static func == (lhs: UsersAndMatchups, rhs: UsersAndMatchups) -> Bool {
+        return lhs.usersAndRosters == rhs.usersAndRosters && lhs.matchups == rhs.matchups
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(usersAndRosters)
+        hasher.combine(matchups)
+    }
+    
+    
     var usersAndRosters: UsersWithInfo
     var matchups: MatchupsInfo
     var id =  UUID()
