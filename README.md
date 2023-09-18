@@ -6,4 +6,9 @@ of an individuals team on larger widgets (ipadOS and MacOS). Options should incl
 
 Current UI and work
 
-![Simulator Screenshot - iPhone 14 Pro Max - 2023-09-15 at 14 40 38](https://github.com/eljohncena/Draft/assets/70674723/41f7cb95-7aaf-4223-aed3-87001f4696e4)
+<div style = "width: 60px; height: 100px"> 
+  ![Simulator Screenshot - iPhone 14 Pro Max - 2023-09-18 at 02 52 16](https://github.com/eljohncena/Draft/assets/70674723/793ed02f-acf1-4a5c-a01d-2ba3debd4cdf)
+  ![Simulator Screenshot - iPhone 14 Pro Max - 2023-09-18 at 02 52 16](https://github.com/eljohncena/Draft/assets/70674723/793ed02f-acf1-4a5c-a01d-2ba3debd4cdf)
+</div>
+
+
