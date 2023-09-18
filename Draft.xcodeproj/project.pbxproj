@@ -19,6 +19,7 @@
 		F3A7DC1A2A9FB57900496553 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A7DC192A9FB57900496553 /* ContentView.swift */; };
 		F3A7DC1C2A9FB57A00496553 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A7DC1B2A9FB57A00496553 /* Assets.xcassets */; };
 		F3A7DC1F2A9FB57A00496553 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A7DC1E2A9FB57A00496553 /* Preview Assets.xcassets */; };
+		F3C41DAE2AB7DF5700DAE0FA /* MatchupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C41DAD2AB7DF5700DAE0FA /* MatchupsView.swift */; };
 		F3EC57432AAEC52800E519EC /* RostersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57422AAEC52800E519EC /* RostersInfo.swift */; };
 		F3EC57452AAEC79600E519EC /* RosterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57442AAEC79600E519EC /* RosterController.swift */; };
 		F3EC57532AAEF9DC00E519EC /* UserWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57522AAEF9DC00E519EC /* UserWithInfo.swift */; };
@@ -39,6 +40,7 @@
 		F3A7DC192A9FB57900496553 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F3A7DC1B2A9FB57A00496553 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3A7DC1E2A9FB57A00496553 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F3C41DAD2AB7DF5700DAE0FA /* MatchupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupsView.swift; sourceTree = "<group>"; };
 		F3EC57422AAEC52800E519EC /* RostersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RostersInfo.swift; sourceTree = "<group>"; };
 		F3EC57442AAEC79600E519EC /* RosterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterController.swift; sourceTree = "<group>"; };
 		F3EC57522AAEF9DC00E519EC /* UserWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWithInfo.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			children = (
 				F3A7DC172A9FB57900496553 /* DraftApp.swift */,
 				F3A7DC192A9FB57900496553 /* ContentView.swift */,
+				F3C41DAD2AB7DF5700DAE0FA /* MatchupsView.swift */,
 				F3269FF72AAFF4620014A35A /* TeamInfoView.swift */,
 				F34EEFFB2AA17618004E22AC /* ContentViewController.swift */,
 				F3164CCB2AB4DE1D00D54775 /* UserCombineStructs */,
@@ -232,6 +235,7 @@
 				F34EEFFA2AA17313004E22AC /* LeagueController.swift in Sources */,
 				F32595552AAD77620027DB3D /* UsersInfo.swift in Sources */,
 				F34EEFF82AA16F0C004E22AC /* LeagueInfo.swift in Sources */,
+				F3C41DAE2AB7DF5700DAE0FA /* MatchupsView.swift in Sources */,
 				F3A7DC1A2A9FB57900496553 /* ContentView.swift in Sources */,
 				F3EC57532AAEF9DC00E519EC /* UserWithInfo.swift in Sources */,
 				F3A7DC182A9FB57900496553 /* DraftApp.swift in Sources */,

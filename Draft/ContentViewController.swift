@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor
 class ContentViewController: ObservableObject{
     let leagueController = LeagueController()
-    let userController = UsersController()
+    var userController = UsersController()
     let rosterController = RostersController()
     let matchupController = MatchupsController()
     
@@ -74,11 +74,15 @@ class ContentViewController: ObservableObject{
             
             userInfo = try await userController.fetchUsersInfo()
             
-            DispatchQueue.main.async {
-                self.users = userInfo
-                
+            for x in 0..<userInfo.count{
+                var user = userInfo[x]
+                user.avatarImage = try await userController.fetchAvatar(from: user.metaData.avatarURL)
+                userInfo[x] = user
             }
             
+            DispatchQueue.main.async {
+                self.users = userInfo
+            }
             
         } catch {
             
@@ -129,6 +133,5 @@ class ContentViewController: ObservableObject{
             return UsersAndMatchups(usersAndRosters: user, matchups: userStatistics)
                 }
             }
-
 }
 

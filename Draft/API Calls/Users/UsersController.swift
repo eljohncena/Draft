@@ -49,6 +49,31 @@ class UsersController {
         print("JSON Users decode successful")
         return decodedResponse
         
+        
     }
     
+    func fetchAvatar(from avatarURL: String) async throws -> UIImage {
+        do{
+            let urlComponents = URLComponents(string: avatarURL)!
+            
+            let (data,response) = try await URLSession.shared.data(from: urlComponents.url!)
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                print("Failed to fetch User avatar")
+                throw UsersControllerError.itemNotFound
+            }
+            
+            print(httpResponse.statusCode)
+            
+            guard let image = UIImage(data: data) else {
+                return UIImage(systemName: "questionmark")! }
+            
+            print("Fetch User avatar successful")
+            return image
+            
+        } catch {
+            print(UsersControllerError.itemNotFound)
+            return UIImage(systemName: "questionmark")!
+        }
+    }
 }
