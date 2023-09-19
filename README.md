@@ -14,9 +14,9 @@ RoadMap:
 - [ ] Add images/avatars for users with no uploaded image in Sleeper.com
 - [ ] Add accessibility support 
 - [ ] IOS Widget
-      - [ ] small
-      - [ ] medium
-      - [ ] large
+    - [ ] small
+    - [ ] medium
+    - [ ] large
 - [ ] ipadOS Support
 - [ ] ipadOS Widget
     - [ ] small
