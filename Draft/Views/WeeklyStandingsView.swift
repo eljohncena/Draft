@@ -8,55 +8,70 @@
 import SwiftUI
 
 struct WeeklyStandingsView: View {
-    
+
     var users: [UsersAndMatchups]
-    
-    var body: some View {
-        HStack{
-//            Text("Week \(manager.week) Standings")
-//                .font(.title2)
-//                .padding(.bottom, 10)
-            // drop down menu to select week as well a buttons on both sides to go to each week
+    var week: Int
+    @AppStorage("sleeperMyUserID", store: AppGroup.defaults) private var myUserID = ""
+
+    private var rankedUsers: [UsersAndMatchups] {
+        users.sorted { lhs, rhs in
+            if lhs.weekRecord.wins != rhs.weekRecord.wins {
+                return lhs.weekRecord.wins > rhs.weekRecord.wins
+            }
+            if lhs.weekRecord.pointsFor != rhs.weekRecord.pointsFor {
+                return lhs.weekRecord.pointsFor > rhs.weekRecord.pointsFor
+            }
+            return lhs.matchups.points > rhs.matchups.points
         }
-        NavigationStack {
-            List{
-                ForEach(users.sorted{$0.matchups.points > $1.matchups.points}) { user in
-                    NavigationLink(value: user){
-                        HStack{
-                            VStack{
-                                Image(uiImage: user.usersAndRosters.user.avatarImage!)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 50, height: 50)
-                                Text(user.usersAndRosters.user.metaData.teamName)
-                                    .fontWeight(.bold)
-                                    .multilineTextAlignment(.center)
-                                
-                                HStack{
-                                    Text("\(user.usersAndRosters.userGameWinLossTie.settings.wins) - \(user.usersAndRosters.userGameWinLossTie.settings.ties) - \(user.usersAndRosters.userGameWinLossTie.settings.losses)")
-                                        .font(.subheadline)
-                                }
-                                Text("Points for: \(String(format: "%.2f", user.matchups.points))")
-                            }
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        }
+    }
+
+    var body: some View {
+        List {
+            ForEach(Array(rankedUsers.enumerated()), id: \.element.id) { index, user in
+                NavigationLink(value: user) {
+                    TeamStandingsRow(
+                        user: user,
+                        rank: index + 1,
+                        week: week,
+                        isMine: user.usersAndRosters.user.userID == myUserID
+                    )
+                }
+                .contextMenu {
+                    Button("That’s me") {
+                        SleeperConfig.rememberMe(
+                            userID: user.usersAndRosters.user.userID,
+                            displayName: user.usersAndRosters.user.metaData.teamName
+                        )
                     }
                 }
             }
-            .navigationDestination(for: UsersAndMatchups.self) { platform in
-                Text(platform.usersAndRosters.user.metaData.teamName)
-                }
         }
+        .listStyle(.insetGrouped)
+        .id(week)
+        .navigationSubtitle("Week \(week)")
+        .accessibilityLabel("Standings, week \(week)")
     }
 }
 
 struct WeeklyStandingsView_Previews: PreviewProvider {
     static var previews: some View {
-        
-        let combinedUserInfo = [UsersAndMatchups(usersAndRosters: UsersWithInfo(user: UsersInfo(userID: "98782", displayName: "NotGreenBay", avatarImage: UIImage(systemName: "questionmark")!, metaData: UsersInfo.MetaData(teamName: "NotGreenBay", avatarURL: "")), userGameWinLossTie: RostersInfo(settings: RostersInfo.Settings(), rosterID: 1, userID: "23")), matchups: MatchupsInfo(rosterID: 1, points: 100.0, matchupID: 1)),
-                                UsersAndMatchups(usersAndRosters: UsersWithInfo(user: UsersInfo(userID: "12345", displayName: "Patriots", avatarImage: UIImage(systemName: "questionmark")!, metaData: UsersInfo.MetaData(teamName: "NotPatriotsBecauseBrady", avatarURL: "")), userGameWinLossTie: RostersInfo(settings: RostersInfo.Settings(), rosterID: 2, userID: "23")), matchups: MatchupsInfo(rosterID: 2, points: 89.0, matchupID: 1))]
-        
-        return MatchupsView(users: combinedUserInfo)
+        let combinedUserInfo = [
+            UsersAndMatchups(
+                usersAndRosters: UsersWithInfo(
+                    user: UsersInfo(
+                        userID: "98782",
+                        displayName: "NotGreenBay",
+                        avatarImage: UIImage(systemName: "questionmark"),
+                        metaData: UsersInfo.MetaData(teamName: "NotGreenBay", avatarURL: "")
+                    ),
+                    userGameWinLossTie: RostersInfo(settings: RostersInfo.Settings(), rosterID: 1, userID: "23")
+                ),
+                matchups: MatchupsInfo(rosterID: 1, points: 100.0, matchupID: 1)
+            )
+        ]
+
+        return NavigationStack {
+            WeeklyStandingsView(users: combinedUserInfo, week: 1)
+        }
     }
 }
-
