@@ -21,7 +21,7 @@ struct DraftApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
                 .environment(\.managedObjectContext, persistence.container.viewContext)
                 .onAppear {
                     WatchBridge.shared.activate()
@@ -36,6 +36,20 @@ struct DraftApp: App {
                 GameDayRefresh.schedule()
             }
             #endif
+        }
+    }
+}
+
+private struct RootView: View {
+    @AppStorage("sleeperDidOnboard", store: AppGroup.defaults) private var didOnboard = false
+
+    var body: some View {
+        if didOnboard {
+            ContentView()
+        } else {
+            LandingView {
+                didOnboard = true
+            }
         }
     }
 }

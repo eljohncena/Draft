@@ -12,6 +12,8 @@ struct MatchupsView: View {
     var users: [UsersAndMatchups]
     var week: Int
 
+    @ObservedObject private var ballot = MatchupBallot.shared
+
     private var uniquePairings: [UsersAndMatchups] {
         var seenMatchupIDs = Set<Int>()
         return users.sorted { $0.matchups.points > $1.matchups.points }.filter { user in
@@ -38,10 +40,10 @@ struct MatchupsView: View {
                 }
 
                 ForEach(unmatchedTeams) { user in
-                    teamSide(user)
+                    teamSide(user, opponent: nil, tally: nil)
                         .padding(16)
                         .frame(maxWidth: .infinity)
-                        .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+                        .draftGlass(in: RoundedRectangle(cornerRadius: 24, style: .continuous))
                 }
             }
             .padding(.horizontal, 16)
@@ -53,33 +55,45 @@ struct MatchupsView: View {
     }
 
     private func pairingCard(_ user: UsersAndMatchups, opponent: UsersAndMatchups?) -> some View {
-        HStack(alignment: .center, spacing: 8) {
-            teamSide(user)
-            Text("VS")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(.secondary)
-                .padding(.horizontal, 6)
-                .accessibilityHidden(true)
-            if let opponent {
-                teamSide(opponent)
+        let tally: MatchupBallot.Tally? = opponent.map {
+            ballot.tally(
+                week: week,
+                matchupID: user.matchups.matchupID,
+                leftUserID: user.usersAndRosters.user.userID,
+                rightUserID: $0.usersAndRosters.user.userID
+            )
+        }
+
+        return VStack(spacing: 12) {
+            HStack(alignment: .top, spacing: 8) {
+                teamSide(user, opponent: opponent, tally: tally)
+                Text("VS")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal, 6)
+                    .padding(.top, 20)
+                    .accessibilityHidden(true)
+                if let opponent {
+                    teamSide(opponent, opponent: user, tally: tally)
+                }
+            }
+
+            if let tally {
+                Text(tally.total == 0 ? "No votes yet" : (tally.total == 1 ? "1 vote" : "\(tally.total) votes"))
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .accessibilityHidden(true)
             }
         }
         .padding(16)
-        .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(pairingLabel(user, opponent: opponent))
+        .draftGlass(in: RoundedRectangle(cornerRadius: 24, style: .continuous))
     }
 
-    private func pairingLabel(_ user: UsersAndMatchups, opponent: UsersAndMatchups?) -> String {
-        let left = "\(user.usersAndRosters.user.metaData.teamName) \(DraftFormat.points(user.matchups.points))"
-        guard let opponent else {
-            return left
-        }
-        return "\(left) versus \(opponent.usersAndRosters.user.metaData.teamName) \(DraftFormat.points(opponent.matchups.points))"
-    }
-
-    private func teamSide(_ user: UsersAndMatchups) -> some View {
+    private func teamSide(_ user: UsersAndMatchups, opponent: UsersAndMatchups?, tally: MatchupBallot.Tally?) -> some View {
         let settings = user.usersAndRosters.userGameWinLossTie.settings
+        let userID = user.usersAndRosters.user.userID
+        let percent = tally?.percent(for: userID)
+
         return VStack(spacing: 8) {
             TeamAvatar(image: user.usersAndRosters.user.displayAvatar, size: 52)
             Text(user.usersAndRosters.user.metaData.teamName)
@@ -93,8 +107,93 @@ struct MatchupsView: View {
             Text(DraftFormat.points(user.matchups.points))
                 .font(.title3.weight(.semibold).monospacedDigit())
                 .minimumScaleFactor(0.7)
+
+            if let tally, opponent != nil {
+                Text(percent.map { "\($0)%" } ?? "—")
+                    .font(.headline.monospacedDigit())
+                    .foregroundStyle(percent == nil ? Color.secondary : Color.primary)
+                    .accessibilityLabel(percent.map { "\($0) percent pick this team to win" } ?? "No votes yet")
+
+                MatchupVoteButtons(
+                    teamName: user.usersAndRosters.user.metaData.teamName,
+                    opponentName: opponent?.usersAndRosters.user.metaData.teamName ?? "opponent",
+                    pickedThisTeam: tally.myWinnerUserID == userID,
+                    pickedOpponent: tally.myWinnerUserID != nil && tally.myWinnerUserID != userID,
+                    hasVoted: tally.hasVoted,
+                    onUp: {
+                        ballot.cast(week: week, matchupID: user.matchups.matchupID, winnerUserID: userID)
+                    },
+                    onDown: {
+                        if let opponent {
+                            ballot.cast(
+                                week: week,
+                                matchupID: user.matchups.matchupID,
+                                winnerUserID: opponent.usersAndRosters.user.userID
+                            )
+                        }
+                    }
+                )
+            }
         }
         .frame(maxWidth: .infinity)
+    }
+}
+
+private struct MatchupVoteButtons: View {
+    let teamName: String
+    let opponentName: String
+    let pickedThisTeam: Bool
+    let pickedOpponent: Bool
+    let hasVoted: Bool
+    let onUp: () -> Void
+    let onDown: () -> Void
+
+    @State private var voteTick = 0
+
+    var body: some View {
+        HStack(spacing: 8) {
+            voteButton(
+                systemName: pickedThisTeam ? "hand.thumbsup.fill" : "hand.thumbsup",
+                selected: pickedThisTeam,
+                action: onUp,
+                label: "Vote for \(teamName) to win",
+                hint: hasVoted ? "You already voted in this matchup" : "Submits your only vote for this matchup"
+            )
+            voteButton(
+                systemName: pickedOpponent ? "hand.thumbsdown.fill" : "hand.thumbsdown",
+                selected: pickedOpponent,
+                action: onDown,
+                label: "Vote against \(teamName), for \(opponentName)",
+                hint: hasVoted ? "You already voted in this matchup" : "Submits your only vote for this matchup"
+            )
+        }
+        .sensoryFeedback(.impact(flexibility: .solid, intensity: 0.7), trigger: voteTick)
+    }
+
+    private func voteButton(
+        systemName: String,
+        selected: Bool,
+        action: @escaping () -> Void,
+        label: String,
+        hint: String
+    ) -> some View {
+        Button {
+            action()
+            if !hasVoted {
+                voteTick += 1
+            }
+        } label: {
+            Image(systemName: systemName)
+                .imageScale(.medium)
+                .frame(minWidth: 28, minHeight: 22)
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.small)
+        .tint(selected ? Color.accentColor : Color.secondary)
+        .disabled(hasVoted)
+        .accessibilityLabel(label)
+        .accessibilityHint(hint)
+        .accessibilityAddTraits(selected ? .isSelected : [])
     }
 }
 

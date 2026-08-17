@@ -58,7 +58,7 @@ struct MatchupMediumView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .containerBackground(for: .widget) {
-            WidgetChrome.background()
+            WidgetChrome.Background()
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(label)
@@ -107,7 +107,7 @@ struct MatchupWidget: Widget {
     }
 }
 
-#Preview(as: .systemMedium) {
+#Preview("Matchup medium", as: .systemMedium) {
     MatchupWidget()
 } timeline: {
     RankEntry(date: .now, snapshot: .placeholder, teamID: "1")

@@ -26,6 +26,7 @@ struct TeamAvatar: View {
     var size: CGFloat = 48
 
     @ScaledMetric(relativeTo: .body) private var scale: CGFloat = 1
+    @Environment(\.colorSchemeContrast) private var contrast
 
     var body: some View {
         let side = size * scale
@@ -36,7 +37,10 @@ struct TeamAvatar: View {
             .clipShape(Circle())
             .overlay {
                 Circle()
-                    .strokeBorder(Color.primary.opacity(0.18), lineWidth: 1)
+                    .strokeBorder(
+                        Color.primary.opacity(contrast == .increased ? 0.45 : 0.18),
+                        lineWidth: contrast == .increased ? 2 : 1
+                    )
             }
             .accessibilityHidden(true)
     }
@@ -60,7 +64,7 @@ struct GlassStatChip: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 12)
         .padding(.horizontal, 8)
-        .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .draftGlass(in: RoundedRectangle(cornerRadius: 16, style: .continuous))
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(title) \(value)")
     }
@@ -113,5 +117,45 @@ struct TeamStandingsRow: View {
         .accessibilityLabel(
             "\(rank). \(user.usersAndRosters.user.metaData.teamName)\(isMine ? ", your team" : ""), record \(DraftFormat.record(wins: user.weekRecord.wins, ties: user.weekRecord.ties, losses: user.weekRecord.losses)), week \(week) \(DraftFormat.points(user.matchups.points)) points, season \(DraftFormat.points(user.weekRecord.pointsFor)) points for"
         )
+    }
+}
+
+extension View {
+    func draftGlass<S: InsettableShape>(in shape: S, interactive: Bool = false) -> some View {
+        modifier(DraftGlassModifier(shape: shape, interactive: interactive))
+    }
+
+    func draftProminentButton() -> some View {
+        modifier(DraftProminentButtonModifier())
+    }
+}
+
+private struct DraftGlassModifier<S: InsettableShape>: ViewModifier {
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+    @Environment(\.colorSchemeContrast) private var contrast
+    var shape: S
+    var interactive: Bool
+
+    func body(content: Content) -> some View {
+        let strokeOpacity: Double = contrast == .increased ? 0.45 : 0.18
+        if reduceTransparency {
+            content
+                .background(Color(.secondarySystemGroupedBackground), in: shape)
+                .overlay(shape.strokeBorder(Color.primary.opacity(strokeOpacity), lineWidth: contrast == .increased ? 2 : 1))
+        } else {
+            content.glassEffect(interactive ? .regular.interactive() : .regular, in: shape)
+        }
+    }
+}
+
+private struct DraftProminentButtonModifier: ViewModifier {
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+
+    func body(content: Content) -> some View {
+        if reduceTransparency {
+            content.buttonStyle(.borderedProminent)
+        } else {
+            content.buttonStyle(.glassProminent)
+        }
     }
 }

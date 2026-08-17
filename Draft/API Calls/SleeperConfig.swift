@@ -56,5 +56,15 @@ enum SleeperConfig {
             MatchupLiveActivity.sync(snapshot)
             #endif
         }
+        #if os(iOS)
+        Task { @MainActor in
+            MatchupBallot.shared.adoptDeviceVotes(as: userID)
+        }
+        #endif
+    }
+
+    static func completeOnboarding(leagueID: String) {
+        Self.leagueID = leagueID
+        AppGroup.didOnboard = true
     }
 }

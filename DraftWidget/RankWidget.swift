@@ -60,6 +60,7 @@ struct RankWidgetEntryView: View {
 struct RankSmallView: View {
     var snapshot: RankWidgetSnapshot
     var team: RankWidgetSnapshot.Team
+    @ScaledMetric(relativeTo: .largeTitle) private var rankSize: CGFloat = 42
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -67,7 +68,7 @@ struct RankSmallView: View {
             Spacer(minLength: 4)
             HStack(alignment: .lastTextBaseline, spacing: 4) {
                 Text("\(team.rank)")
-                    .font(.system(size: 42, weight: .bold, design: .rounded))
+                    .font(.system(size: rankSize, weight: .bold, design: .rounded))
                     .monospacedDigit()
                     .minimumScaleFactor(0.6)
                     .lineLimit(1)
@@ -83,7 +84,7 @@ struct RankSmallView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .containerBackground(for: .widget) {
-            WidgetChrome.background()
+            WidgetChrome.Background()
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(team.teamName), rank \(team.rank) of \(snapshot.teams.count), record \(team.record), week \(snapshot.week)")
@@ -92,13 +93,14 @@ struct RankSmallView: View {
 
 struct RankCircularView: View {
     var team: RankWidgetSnapshot.Team
+    @ScaledMetric(relativeTo: .title) private var rankSize: CGFloat = 28
 
     var body: some View {
         ZStack {
             AccessoryWidgetBackground()
             VStack(spacing: 0) {
                 Text("\(team.rank)")
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .font(.system(size: rankSize, weight: .bold, design: .rounded))
                     .monospacedDigit()
                     .minimumScaleFactor(0.5)
                 Text(team.record)
@@ -157,10 +159,40 @@ struct RankWidget: Widget {
 }
 
 #if !os(watchOS)
-#Preview(as: .systemSmall) {
+#Preview("Rank small", as: .systemSmall) {
     RankWidget()
 } timeline: {
     RankEntry(date: .now, snapshot: .placeholder, teamID: "1")
     RankEntry(date: .now, snapshot: nil, teamID: nil)
+}
+
+#Preview("Rank lock circular", as: .accessoryCircular) {
+    RankWidget()
+} timeline: {
+    RankEntry(date: .now, snapshot: .placeholder, teamID: "1")
+}
+
+#Preview("Rank lock rectangular", as: .accessoryRectangular) {
+    RankWidget()
+} timeline: {
+    RankEntry(date: .now, snapshot: .placeholder, teamID: "1")
+}
+#else
+#Preview("Watch circular", as: .accessoryCircular) {
+    RankWidget()
+} timeline: {
+    RankEntry(date: .now, snapshot: .placeholder, teamID: "1")
+}
+
+#Preview("Watch rectangular", as: .accessoryRectangular) {
+    RankWidget()
+} timeline: {
+    RankEntry(date: .now, snapshot: .placeholder, teamID: "1")
+}
+
+#Preview("Watch corner", as: .accessoryCorner) {
+    RankWidget()
+} timeline: {
+    RankEntry(date: .now, snapshot: .placeholder, teamID: "1")
 }
 #endif

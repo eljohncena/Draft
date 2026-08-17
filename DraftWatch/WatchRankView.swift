@@ -8,9 +8,17 @@
 import SwiftUI
 
 struct WatchRankView: View {
-    @State private var snapshot = RankWidgetCache.read()
-    @State private var selectedID: String? = AppGroup.myUserID.isEmpty ? nil : AppGroup.myUserID
+    @State private var snapshot: RankWidgetSnapshot?
+    @State private var selectedID: String?
     @State private var isLoading = false
+    private var loadsRemote: Bool
+    @ScaledMetric(relativeTo: .largeTitle) private var rankSize: CGFloat = 44
+
+    init(snapshot: RankWidgetSnapshot? = RankWidgetCache.read(), loadsRemote: Bool = true) {
+        _snapshot = State(initialValue: snapshot)
+        _selectedID = State(initialValue: AppGroup.myUserID.isEmpty ? nil : AppGroup.myUserID)
+        self.loadsRemote = loadsRemote
+    }
 
     private var team: RankWidgetSnapshot.Team? {
         snapshot?.team(id: selectedID)
@@ -24,7 +32,7 @@ struct WatchRankView: View {
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                     Text("\(team.rank)")
-                        .font(.system(size: 44, weight: .bold, design: .rounded))
+                        .font(.system(size: rankSize, weight: .bold, design: .rounded))
                         .monospacedDigit()
                     Text(team.teamName)
                         .font(.headline)
@@ -51,6 +59,7 @@ struct WatchRankView: View {
         .padding(.horizontal, 4)
         .navigationTitle("Rank")
         .task {
+            guard loadsRemote else { return }
             WatchBridge.shared.activate()
             snapshot = RankWidgetCache.read()
             await refreshIfNeeded()
@@ -88,5 +97,24 @@ struct WatchRankView: View {
         } catch {
             print("Watch league fetch failed: \(error.localizedDescription)")
         }
+    }
+}
+
+#Preview("Watch rank") {
+    NavigationStack {
+        WatchRankView(snapshot: RankWidgetSnapshot.placeholder, loadsRemote: false)
+    }
+}
+
+#Preview("Watch rank dark") {
+    NavigationStack {
+        WatchRankView(snapshot: RankWidgetSnapshot.placeholder, loadsRemote: false)
+    }
+    .preferredColorScheme(.dark)
+}
+
+#Preview("Watch empty") {
+    NavigationStack {
+        WatchRankView(snapshot: nil, loadsRemote: false)
     }
 }

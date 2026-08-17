@@ -65,7 +65,7 @@ struct StatsLargeView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .containerBackground(for: .widget) {
-            WidgetChrome.background()
+            WidgetChrome.Background()
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(
@@ -148,7 +148,7 @@ struct StandingsExtraLargeView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .containerBackground(for: .widget) {
-            WidgetChrome.background()
+            WidgetChrome.Background()
         }
     }
 }
@@ -168,8 +168,14 @@ struct StandingsWidget: Widget {
     }
 }
 
-#Preview(as: .systemLarge) {
+#Preview("Stats large", as: .systemLarge) {
     StatsWidget()
+} timeline: {
+    RankEntry(date: .now, snapshot: .placeholder, teamID: "1")
+}
+
+#Preview("Standings extra large", as: .systemExtraLarge) {
+    StandingsWidget()
 } timeline: {
     RankEntry(date: .now, snapshot: .placeholder, teamID: "1")
 }

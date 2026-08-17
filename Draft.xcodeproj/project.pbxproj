@@ -11,6 +11,9 @@
 		F3269FF82AAFF4620014A35A /* TeamInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3269FF72AAFF4620014A35A /* TeamInfoView.swift */; };
 		F32595552AAD77620027DB3D /* UsersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32595542AAD77620027DB3D /* UsersInfo.swift */; };
 		F3F4E1022AE8340100461628 /* DraftChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F4E1012AE8340100461628 /* DraftChrome.swift */; };
+		F41300022AE8800100461628 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41300012AE8800100461628 /* LandingView.swift */; };
+		F41400022AE8900100461628 /* MatchupBallot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41400012AE8900100461628 /* MatchupBallot.swift */; };
+		F41500022AE8A00100461628 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41500012AE8A00100461628 /* SettingsView.swift */; };
 		F34EEFF82AA16F0C004E22AC /* LeagueInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */; };
 		F34EEFFA2AA17313004E22AC /* LeagueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF92AA17313004E22AC /* LeagueController.swift */; };
 		F34EEFFC2AA17618004E22AC /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFFB2AA17618004E22AC /* ContentViewController.swift */; };
@@ -157,6 +160,9 @@
 		F32595542AAD77620027DB3D /* UsersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersInfo.swift; sourceTree = "<group>"; };
 		F3269FF72AAFF4620014A35A /* TeamInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamInfoView.swift; sourceTree = "<group>"; };
 		F3F4E1012AE8340100461628 /* DraftChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftChrome.swift; sourceTree = "<group>"; };
+		F41300012AE8800100461628 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
+		F41400012AE8900100461628 /* MatchupBallot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupBallot.swift; sourceTree = "<group>"; };
+		F41500012AE8A00100461628 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueInfo.swift; sourceTree = "<group>"; };
 		F34EEFF92AA17313004E22AC /* LeagueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueController.swift; sourceTree = "<group>"; };
 		F34EEFFB2AA17618004E22AC /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
@@ -332,6 +338,7 @@
 				F41100342AE8600100461628 /* WatchBridge.swift */,
 				F41000082AE8500100461628 /* RankWidgetSnapshot.swift */,
 				F41000092AE8500100461628 /* AppGroup.swift */,
+				F41400012AE8900100461628 /* MatchupBallot.swift */,
 				F410000A2AE8500100461628 /* Draft.entitlements */,
 				F41200092AE8700100461628 /* Info.plist */,
 				F3CB289E2ABAA33F008CDCC7 /* Views */,
@@ -359,6 +366,8 @@
 				F3C41DAD2AB7DF5700DAE0FA /* MatchupsView.swift */,
 				F3269FF72AAFF4620014A35A /* TeamInfoView.swift */,
 				F3F4E1012AE8340100461628 /* DraftChrome.swift */,
+				F41300012AE8800100461628 /* LandingView.swift */,
+				F41500012AE8A00100461628 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -611,6 +620,7 @@
 				F3EC57452AAEC79600E519EC /* RosterController.swift in Sources */,
 				F3269FF82AAFF4620014A35A /* TeamInfoView.swift in Sources */,
 				F3F4E1022AE8340100461628 /* DraftChrome.swift in Sources */,
+				F41300022AE8800100461628 /* LandingView.swift in Sources */,
 				F32595532AAD771C0027DB3D /* UsersController.swift in Sources */,
 				F3FED9E12AB0A45B0092BC60 /* UsersAndMatchups.swift in Sources */,
 				F34EEFFC2AA17618004E22AC /* ContentViewController.swift in Sources */,
@@ -623,6 +633,7 @@
 				F34EEFF82AA16F0C004E22AC /* LeagueInfo.swift in Sources */,
 				F3CB289D2ABA7184008CDCC7 /* WeeklyStandingsView.swift in Sources */,
 				F3C41DAE2AB7DF5700DAE0FA /* MatchupsView.swift in Sources */,
+				F41500022AE8A00100461628 /* SettingsView.swift in Sources */,
 				F3A7DC1A2A9FB57900496553 /* ContentView.swift in Sources */,
 				F3EC57532AAEF9DC00E519EC /* UserWithInfo.swift in Sources */,
 				F3A7DC182A9FB57900496553 /* DraftApp.swift in Sources */,
@@ -630,6 +641,7 @@
 				F3E8C4042AE8211100461628 /* LeagueStore.swift in Sources */,
 				F41000142AE8500100461628 /* RankWidgetSnapshot.swift in Sources */,
 				F41000162AE8500100461628 /* AppGroup.swift in Sources */,
+				F41400022AE8900100461628 /* MatchupBallot.swift in Sources */,
 				F41100162AE8600100461628 /* SleeperClient.swift in Sources */,
 				F41100152AE8600100461628 /* WatchBridge.swift in Sources */,
 				F41201012AE8700100461628 /* LeagueSnapshot.swift in Sources */,

@@ -15,7 +15,9 @@ struct DraftWatchApp: App {
 
     var body: some Scene {
         WindowGroup {
-            WatchRankView()
+            NavigationStack {
+                WatchRankView()
+            }
         }
     }
 }

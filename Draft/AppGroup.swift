@@ -19,10 +19,17 @@ enum AppGroup {
     }
 
     static var snapshotURL: URL? {
+        supportDirectory?.appendingPathComponent("rank-widget.json", isDirectory: false)
+    }
+
+    static var matchupVotesURL: URL? {
+        supportDirectory?.appendingPathComponent("matchup-votes.json", isDirectory: false)
+    }
+
+    private static var supportDirectory: URL? {
         containerURL?
             .appendingPathComponent("Library", isDirectory: true)
             .appendingPathComponent("Application Support", isDirectory: true)
-            .appendingPathComponent("rank-widget.json", isDirectory: false)
     }
 
     static var myUserID: String {
@@ -42,5 +49,27 @@ enum AppGroup {
 
     static var hasMyTeam: Bool {
         !myUserID.isEmpty
+    }
+
+    /// Sleeper user when “That’s me” is set; otherwise a stable per-device voter.
+    static var voterID: String {
+        if !myUserID.isEmpty {
+            return myUserID
+        }
+        if let existing = defaults.string(forKey: "sleeperVoterID"), !existing.isEmpty {
+            return existing
+        }
+        let generated = "device-" + UUID().uuidString
+        defaults.set(generated, forKey: "sleeperVoterID")
+        return generated
+    }
+
+    static var deviceVoterID: String {
+        defaults.string(forKey: "sleeperVoterID") ?? ""
+    }
+
+    static var didOnboard: Bool {
+        get { defaults.bool(forKey: "sleeperDidOnboard") }
+        set { defaults.set(newValue, forKey: "sleeperDidOnboard") }
     }
 }

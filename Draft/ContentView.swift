@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
 
     enum AppTab: Hashable {
-        case standings, matchups, news, leagues
+        case standings, matchups, news, leagues, settings
     }
 
     @StateObject var manager = ContentViewController()
@@ -53,6 +53,12 @@ struct ContentView: View {
             }
             .tabItem { Label("Leagues", systemImage: "sportscourt") }
             .tag(AppTab.leagues)
+
+            NavigationStack {
+                SettingsView()
+            }
+            .tabItem { Label("Settings", systemImage: "gearshape") }
+            .tag(AppTab.settings)
         }
         .modifier(TabBarMinimizeModifier())
         .task {
@@ -208,7 +214,7 @@ struct LeaguesView: View {
                 Button("Search") {
                     Task { await search() }
                 }
-                .buttonStyle(.glassProminent)
+                .draftProminentButton()
                 .disabled(query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isSearching)
             }
         }
@@ -217,7 +223,7 @@ struct LeaguesView: View {
                 ProgressView()
                     .controlSize(.large)
                     .padding(20)
-                    .glassEffect(.regular.interactive(), in: Circle())
+                    .draftGlass(in: Circle(), interactive: true)
             }
         }
         .safeAreaInset(edge: .bottom) {
@@ -228,7 +234,7 @@ struct LeaguesView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
                     .frame(maxWidth: .infinity)
-                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .draftGlass(in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                     .padding(.horizontal, 16)
                     .padding(.bottom, 8)
             }
@@ -404,7 +410,7 @@ struct NewsView: View {
                 ProgressView()
                     .controlSize(.large)
                     .padding(20)
-                    .glassEffect(.regular.interactive(), in: Circle())
+                    .draftGlass(in: Circle(), interactive: true)
             }
         }
         .safeAreaInset(edge: .bottom) {
@@ -415,7 +421,7 @@ struct NewsView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
                     .frame(maxWidth: .infinity)
-                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .draftGlass(in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                     .padding(.horizontal, 16)
                     .padding(.bottom, 8)
             }

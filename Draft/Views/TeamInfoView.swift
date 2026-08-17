@@ -144,7 +144,18 @@ struct TeamInfoView: View {
     private func playerRow(_ playerID: String) -> some View {
         let player = players[playerID]
         let points = current.matchups.playerPoints[playerID] ?? 0
-        return HStack {
+        return PlayerRosterRow(player: player, playerID: playerID, points: points)
+    }
+}
+
+private struct PlayerRosterRow: View {
+    var player: PlayersInfo?
+    var playerID: String
+    var points: Float
+    @Environment(\.colorSchemeContrast) private var contrast
+
+    var body: some View {
+        HStack {
             VStack(alignment: .leading, spacing: 2) {
                 Text(player?.displayName ?? playerID)
                     .font(.headline)
@@ -156,7 +167,7 @@ struct TeamInfoView: View {
                 if let injury = player?.injuryStatus, !injury.isEmpty {
                     Text(injury)
                         .font(.caption.weight(.semibold))
-                        .foregroundStyle(.orange)
+                        .foregroundStyle(contrast == .increased ? Color.primary : Color.orange)
                 }
             }
             Spacer()
@@ -166,10 +177,10 @@ struct TeamInfoView: View {
         }
         .padding(.vertical, 2)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel(playerRowLabel(playerID, player: player, points: points))
+        .accessibilityLabel(label)
     }
 
-    private func playerRowLabel(_ playerID: String, player: PlayersInfo?, points: Float) -> String {
+    private var label: String {
         var parts = [player?.displayName ?? playerID]
         if let detail = player?.positionTeam, !detail.isEmpty {
             parts.append(detail)
@@ -241,7 +252,7 @@ struct PlayerNewsView: View {
                 ProgressView()
                     .controlSize(.large)
                     .padding(20)
-                    .glassEffect(.regular.interactive(), in: Circle())
+                    .draftGlass(in: Circle(), interactive: true)
             }
         }
         .task(id: playerID) {
@@ -301,6 +312,7 @@ struct NewsRow: View {
     var item: NewsItem
 
     @Environment(\.openURL) private var openURL
+    @ScaledMetric(relativeTo: .body) private var thumb: CGFloat = 72
 
     var body: some View {
         Button {
@@ -317,7 +329,7 @@ struct NewsRow: View {
                     } placeholder: {
                         Color.primary.opacity(0.08)
                     }
-                    .frame(width: 72, height: 72)
+                    .frame(width: thumb, height: thumb)
                     .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 }
 

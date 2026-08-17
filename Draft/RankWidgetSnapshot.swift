@@ -103,3 +103,19 @@ enum RankWidgetCache {
 extension Notification.Name {
     static let rankSnapshotDidChange = Notification.Name("RankWidgetSnapshotDidChange")
 }
+
+extension RankWidgetSnapshot {
+    static let placeholder = RankWidgetSnapshot(
+        leagueID: "preview",
+        leagueName: "Wizards",
+        season: "2026",
+        week: 1,
+        teams: [
+            Team(userID: "1", rosterID: 1, teamName: "MoneyTeamFC", displayName: "Money", rank: 1, wins: 3, ties: 0, losses: 0, pointsFor: 412.4, weekPoints: 118.2, matchupID: 1, opponentUserID: "2"),
+            Team(userID: "2", rosterID: 2, teamName: "ta1ktomEnice", displayName: "Talk", rank: 4, wins: 2, ties: 0, losses: 1, pointsFor: 356.1, weekPoints: 101.4, matchupID: 1, opponentUserID: "1"),
+            Team(userID: "3", rosterID: 3, teamName: "NotGreenBay", displayName: "GB", rank: 2, wins: 2, ties: 1, losses: 0, pointsFor: 388.0, weekPoints: 96.2, matchupID: 2, opponentUserID: "4"),
+            Team(userID: "4", rosterID: 4, teamName: "Waffle House", displayName: "Waffle", rank: 3, wins: 2, ties: 0, losses: 1, pointsFor: 371.8, weekPoints: 88.0, matchupID: 2, opponentUserID: "3")
+        ],
+        updatedAt: Date()
+    )
+}
