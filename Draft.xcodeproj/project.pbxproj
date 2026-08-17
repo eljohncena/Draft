@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		F32595532AAD771C0027DB3D /* UsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32595522AAD771C0027DB3D /* UsersController.swift */; };
-		F32595552AAD77620027DB3D /* UsersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32595542AAD77620027DB3D /* UsersInfo.swift */; };
 		F3269FF82AAFF4620014A35A /* TeamInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3269FF72AAFF4620014A35A /* TeamInfoView.swift */; };
+		F32595552AAD77620027DB3D /* UsersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32595542AAD77620027DB3D /* UsersInfo.swift */; };
+		F3F4E1022AE8340100461628 /* DraftChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F4E1012AE8340100461628 /* DraftChrome.swift */; };
 		F34EEFF82AA16F0C004E22AC /* LeagueInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */; };
 		F34EEFFA2AA17313004E22AC /* LeagueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF92AA17313004E22AC /* LeagueController.swift */; };
 		F34EEFFC2AA17618004E22AC /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFFB2AA17618004E22AC /* ContentViewController.swift */; };
@@ -20,16 +21,142 @@
 		F3A7DC1C2A9FB57A00496553 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A7DC1B2A9FB57A00496553 /* Assets.xcassets */; };
 		F3A7DC1F2A9FB57A00496553 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A7DC1E2A9FB57A00496553 /* Preview Assets.xcassets */; };
 		F3C41DAE2AB7DF5700DAE0FA /* MatchupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C41DAD2AB7DF5700DAE0FA /* MatchupsView.swift */; };
+		F3CB289D2ABA7184008CDCC7 /* WeeklyStandingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB289C2ABA7184008CDCC7 /* WeeklyStandingsView.swift */; };
+		F3D93F712AD5B64300461627 /* UserContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3D93F6F2AD5B64300461627 /* UserContainer.xcdatamodeld */; };
+		F3E1A2022AE8110100461628 /* SleeperConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E1A2012AE8110100461628 /* SleeperConfig.swift */; };
+		F3E8C4022AE8211100461628 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8C4012AE8211100461628 /* PersistenceController.swift */; };
+		F3E8C4042AE8211100461628 /* LeagueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E8C4032AE8211100461628 /* LeagueStore.swift */; };
 		F3EC57432AAEC52800E519EC /* RostersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57422AAEC52800E519EC /* RostersInfo.swift */; };
 		F3EC57452AAEC79600E519EC /* RosterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57442AAEC79600E519EC /* RosterController.swift */; };
 		F3EC57532AAEF9DC00E519EC /* UserWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57522AAEF9DC00E519EC /* UserWithInfo.swift */; };
+		F3F2C1012AE8320100461628 /* PlayersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F2C1002AE8320100461628 /* PlayersInfo.swift */; };
+		F3F2C1032AE8320100461628 /* PlayersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F2C1022AE8320100461628 /* PlayersController.swift */; };
 		F3FED9E12AB0A45B0092BC60 /* UsersAndMatchups.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FED9E02AB0A45B0092BC60 /* UsersAndMatchups.swift */; };
+		F41000102AE8500100461628 /* RankWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41000022AE8500100461628 /* RankWidget.swift */; };
+		F41000112AE8500100461628 /* DraftWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41000032AE8500100461628 /* DraftWidgetBundle.swift */; };
+		F41000132AE8500100461628 /* RankWidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41000082AE8500100461628 /* RankWidgetSnapshot.swift */; };
+		F41000142AE8500100461628 /* RankWidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41000082AE8500100461628 /* RankWidgetSnapshot.swift */; };
+		F41000152AE8500100461628 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41000092AE8500100461628 /* AppGroup.swift */; };
+		F41000162AE8500100461628 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41000092AE8500100461628 /* AppGroup.swift */; };
+		F41000172AE8500100461628 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F41000072AE8500100461628 /* Assets.xcassets */; };
+		F41000182AE8500100461628 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F41000202AE8500100461628 /* WidgetKit.framework */; };
+		F41000192AE8500100461628 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F41000212AE8500100461628 /* SwiftUI.framework */; };
+		F410001A2AE8500100461628 /* DraftWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F41000012AE8500100461628 /* DraftWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F41100152AE8600100461628 /* WatchBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41100342AE8600100461628 /* WatchBridge.swift */; };
+		F41100162AE8600100461628 /* SleeperClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41100332AE8600100461628 /* SleeperClient.swift */; };
+		F411001D2AE8600100461628 /* WidgetShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41100302AE8600100461628 /* WidgetShared.swift */; };
+		F411001E2AE8600100461628 /* MatchupWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41100312AE8600100461628 /* MatchupWidget.swift */; };
+		F411001F2AE8600100461628 /* StatsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41100322AE8600100461628 /* StatsWidget.swift */; };
+		F41100102AE8600100461628 /* DraftWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41100022AE8600100461628 /* DraftWatchApp.swift */; };
+		F41100112AE8600100461628 /* WatchRankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41100032AE8600100461628 /* WatchRankView.swift */; };
+		F41100122AE8600100461628 /* RankWidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41000082AE8500100461628 /* RankWidgetSnapshot.swift */; };
+		F41100132AE8600100461628 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41000092AE8500100461628 /* AppGroup.swift */; };
+		F41100142AE8600100461628 /* WatchBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41100342AE8600100461628 /* WatchBridge.swift */; };
+		F41100172AE8600100461628 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F41100062AE8600100461628 /* Assets.xcassets */; };
+		F41100182AE8600100461628 /* DraftWatchWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41100082AE8600100461628 /* DraftWatchWidgetBundle.swift */; };
+		F41100192AE8600100461628 /* RankWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41000022AE8500100461628 /* RankWidget.swift */; };
+		F411001A2AE8600100461628 /* WidgetShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41100302AE8600100461628 /* WidgetShared.swift */; };
+		F411001B2AE8600100461628 /* RankWidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41000082AE8500100461628 /* RankWidgetSnapshot.swift */; };
+		F411001C2AE8600100461628 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41000092AE8500100461628 /* AppGroup.swift */; };
+		F41100202AE8600100461628 /* DraftWatchWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F41100072AE8600100461628 /* DraftWatchWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F41100212AE8600100461628 /* DraftWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F41100012AE8600100461628 /* DraftWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F41100222AE8600100461628 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F411000B2AE8600100461628 /* Assets.xcassets */; };
+		F41100232AE8600100461628 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F41000202AE8500100461628 /* WidgetKit.framework */; };
+		F41100242AE8600100461628 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F41000212AE8500100461628 /* SwiftUI.framework */; };
+
+		F41201012AE8700100461628 /* LeagueSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200012AE8700100461628 /* LeagueSnapshot.swift */; };
+		F41201022AE8700100461628 /* LeagueRefresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200022AE8700100461628 /* LeagueRefresher.swift */; };
+		F41201032AE8700100461628 /* GameDayRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200032AE8700100461628 /* GameDayRefresh.swift */; };
+		F41201042AE8700100461628 /* MatchupActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200042AE8700100461628 /* MatchupActivity.swift */; };
+		F41201052AE8700100461628 /* DraftRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200052AE8700100461628 /* DraftRoute.swift */; };
+		F41201062AE8700100461628 /* GameDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200062AE8700100461628 /* GameDay.swift */; };
+		F41201072AE8700100461628 /* MatchupLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200072AE8700100461628 /* MatchupLiveActivity.swift */; };
+		F41202012AE8700100461628 /* MatchupActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200042AE8700100461628 /* MatchupActivity.swift */; };
+		F41202022AE8700100461628 /* DraftRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200052AE8700100461628 /* DraftRoute.swift */; };
+		F41202032AE8700100461628 /* MatchupLiveActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200082AE8700100461628 /* MatchupLiveActivityWidget.swift */; };
+		F41203012AE8700100461628 /* SleeperClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41100332AE8600100461628 /* SleeperClient.swift */; };
+		F41203022AE8700100461628 /* SleeperConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E1A2012AE8110100461628 /* SleeperConfig.swift */; };
+		F41203032AE8700100461628 /* LeagueInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */; };
+		F41203042AE8700100461628 /* LeagueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF92AA17313004E22AC /* LeagueController.swift */; };
+		F41203052AE8700100461628 /* UsersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32595542AAD77620027DB3D /* UsersInfo.swift */; };
+		F41203062AE8700100461628 /* UsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32595522AAD771C0027DB3D /* UsersController.swift */; };
+		F41203072AE8700100461628 /* RostersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57422AAEC52800E519EC /* RostersInfo.swift */; };
+		F41203082AE8700100461628 /* RosterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57442AAEC79600E519EC /* RosterController.swift */; };
+		F41203092AE8700100461628 /* MatchupsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F390D8E82AB042B8007A0E27 /* MatchupsInfo.swift */; };
+		F41203102AE8700100461628 /* MatchupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F390D8E62AB0425F007A0E27 /* MatchupController.swift */; };
+		F41203112AE8700100461628 /* PlayersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F2C1002AE8320100461628 /* PlayersInfo.swift */; };
+		F41203122AE8700100461628 /* UsersAndMatchups.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FED9E02AB0A45B0092BC60 /* UsersAndMatchups.swift */; };
+		F41203132AE8700100461628 /* UserWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EC57522AAEF9DC00E519EC /* UserWithInfo.swift */; };
+		F41203142AE8700100461628 /* LeagueSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200012AE8700100461628 /* LeagueSnapshot.swift */; };
+		F41203152AE8700100461628 /* LeagueRefresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200022AE8700100461628 /* LeagueRefresher.swift */; };
+		F41203162AE8700100461628 /* GameDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41200062AE8700100461628 /* GameDay.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F41000602AE8500100461628 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A7DC0C2A9FB57900496553 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F41000502AE8500100461628;
+			remoteInfo = DraftWidget;
+		};
+		F41100602AE8600100461628 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A7DC0C2A9FB57900496553 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F41100512AE8600100461628;
+			remoteInfo = DraftWatchWidget;
+		};
+		F41100612AE8600100461628 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A7DC0C2A9FB57900496553 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F41100502AE8600100461628;
+			remoteInfo = DraftWatch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F41000432AE8500100461628 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F410001A2AE8500100461628 /* DraftWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F41100432AE8600100461628 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F41100202AE8600100461628 /* DraftWatchWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F41100472AE8600100461628 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				F41100212AE8600100461628 /* DraftWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F32595522AAD771C0027DB3D /* UsersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersController.swift; sourceTree = "<group>"; };
 		F32595542AAD77620027DB3D /* UsersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersInfo.swift; sourceTree = "<group>"; };
 		F3269FF72AAFF4620014A35A /* TeamInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamInfoView.swift; sourceTree = "<group>"; };
+		F3F4E1012AE8340100461628 /* DraftChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftChrome.swift; sourceTree = "<group>"; };
 		F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueInfo.swift; sourceTree = "<group>"; };
 		F34EEFF92AA17313004E22AC /* LeagueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueController.swift; sourceTree = "<group>"; };
 		F34EEFFB2AA17618004E22AC /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
@@ -41,10 +168,54 @@
 		F3A7DC1B2A9FB57A00496553 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3A7DC1E2A9FB57A00496553 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F3C41DAD2AB7DF5700DAE0FA /* MatchupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupsView.swift; sourceTree = "<group>"; };
+		F3CB289C2ABA7184008CDCC7 /* WeeklyStandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyStandingsView.swift; sourceTree = "<group>"; };
+		F3D93F702AD5B64300461627 /* UserContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserContainer.xcdatamodel; sourceTree = "<group>"; };
+		F3E1A2012AE8110100461628 /* SleeperConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleeperConfig.swift; sourceTree = "<group>"; };
+		F3E8C4012AE8211100461628 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		F3E8C4032AE8211100461628 /* LeagueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueStore.swift; sourceTree = "<group>"; };
 		F3EC57422AAEC52800E519EC /* RostersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RostersInfo.swift; sourceTree = "<group>"; };
 		F3EC57442AAEC79600E519EC /* RosterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterController.swift; sourceTree = "<group>"; };
 		F3EC57522AAEF9DC00E519EC /* UserWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWithInfo.swift; sourceTree = "<group>"; };
+		F3F2C1002AE8320100461628 /* PlayersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersInfo.swift; sourceTree = "<group>"; };
+		F3F2C1022AE8320100461628 /* PlayersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersController.swift; sourceTree = "<group>"; };
 		F3FED9E02AB0A45B0092BC60 /* UsersAndMatchups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersAndMatchups.swift; sourceTree = "<group>"; };
+		F41000012AE8500100461628 /* DraftWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DraftWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F41000022AE8500100461628 /* RankWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankWidget.swift; sourceTree = "<group>"; };
+		F41000032AE8500100461628 /* DraftWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftWidgetBundle.swift; sourceTree = "<group>"; };
+		F41000052AE8500100461628 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F41000062AE8500100461628 /* DraftWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DraftWidget.entitlements; sourceTree = "<group>"; };
+		F41000072AE8500100461628 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F41000082AE8500100461628 /* RankWidgetSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankWidgetSnapshot.swift; sourceTree = "<group>"; };
+		F41000092AE8500100461628 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		F410000A2AE8500100461628 /* Draft.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Draft.entitlements; sourceTree = "<group>"; };
+		F41000202AE8500100461628 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		F41000212AE8500100461628 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		F41100012AE8600100461628 /* DraftWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DraftWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F41100022AE8600100461628 /* DraftWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftWatchApp.swift; sourceTree = "<group>"; };
+		F41100032AE8600100461628 /* WatchRankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRankView.swift; sourceTree = "<group>"; };
+		F41100042AE8600100461628 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F41100052AE8600100461628 /* DraftWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DraftWatch.entitlements; sourceTree = "<group>"; };
+		F41100062AE8600100461628 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F41100072AE8600100461628 /* DraftWatchWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DraftWatchWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F41100082AE8600100461628 /* DraftWatchWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftWatchWidgetBundle.swift; sourceTree = "<group>"; };
+		F41100092AE8600100461628 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F411000A2AE8600100461628 /* DraftWatchWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DraftWatchWidget.entitlements; sourceTree = "<group>"; };
+		F411000B2AE8600100461628 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F41100302AE8600100461628 /* WidgetShared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetShared.swift; sourceTree = "<group>"; };
+		F41100312AE8600100461628 /* MatchupWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupWidget.swift; sourceTree = "<group>"; };
+		F41100322AE8600100461628 /* StatsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsWidget.swift; sourceTree = "<group>"; };
+		F41100332AE8600100461628 /* SleeperClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleeperClient.swift; sourceTree = "<group>"; };
+		F41100342AE8600100461628 /* WatchBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchBridge.swift; sourceTree = "<group>"; };
+
+		F41200012AE8700100461628 /* LeagueSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueSnapshot.swift; sourceTree = "<group>"; };
+		F41200022AE8700100461628 /* LeagueRefresher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueRefresher.swift; sourceTree = "<group>"; };
+		F41200032AE8700100461628 /* GameDayRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDayRefresh.swift; sourceTree = "<group>"; };
+		F41200042AE8700100461628 /* MatchupActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupActivity.swift; sourceTree = "<group>"; };
+		F41200052AE8700100461628 /* DraftRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftRoute.swift; sourceTree = "<group>"; };
+		F41200062AE8700100461628 /* GameDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDay.swift; sourceTree = "<group>"; };
+		F41200072AE8700100461628 /* MatchupLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupLiveActivity.swift; sourceTree = "<group>"; };
+		F41200082AE8700100461628 /* MatchupLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupLiveActivityWidget.swift; sourceTree = "<group>"; };
+		F41200092AE8700100461628 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +223,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F41000412AE8500100461628 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F41000182AE8500100461628 /* WidgetKit.framework in Frameworks */,
+				F41000192AE8500100461628 /* SwiftUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F41100412AE8600100461628 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F41100452AE8600100461628 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F41100232AE8600100461628 /* WidgetKit.framework in Frameworks */,
+				F41100242AE8600100461628 /* SwiftUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +294,10 @@
 			isa = PBXGroup;
 			children = (
 				F3A7DC162A9FB57900496553 /* Draft */,
+				F41000302AE8500100461628 /* DraftWidget */,
+				F41100802AE8600100461628 /* DraftWatch */,
+				F41100812AE8600100461628 /* DraftWatchWidget */,
+				F41000312AE8500100461628 /* Frameworks */,
 				F3A7DC152A9FB57900496553 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -106,6 +306,9 @@
 			isa = PBXGroup;
 			children = (
 				F3A7DC142A9FB57900496553 /* Draft.app */,
+				F41000012AE8500100461628 /* DraftWidget.appex */,
+				F41100012AE8600100461628 /* DraftWatch.app */,
+				F41100072AE8600100461628 /* DraftWatchWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,13 +318,28 @@
 			children = (
 				F3A7DC172A9FB57900496553 /* DraftApp.swift */,
 				F3A7DC192A9FB57900496553 /* ContentView.swift */,
-				F3C41DAD2AB7DF5700DAE0FA /* MatchupsView.swift */,
-				F3269FF72AAFF4620014A35A /* TeamInfoView.swift */,
 				F34EEFFB2AA17618004E22AC /* ContentViewController.swift */,
+				F3E8C4012AE8211100461628 /* PersistenceController.swift */,
+				F3E8C4032AE8211100461628 /* LeagueStore.swift */,
+				F41200012AE8700100461628 /* LeagueSnapshot.swift */,
+				F41200022AE8700100461628 /* LeagueRefresher.swift */,
+				F41200032AE8700100461628 /* GameDayRefresh.swift */,
+				F41200062AE8700100461628 /* GameDay.swift */,
+				F41200052AE8700100461628 /* DraftRoute.swift */,
+				F41200042AE8700100461628 /* MatchupActivity.swift */,
+				F41200072AE8700100461628 /* MatchupLiveActivity.swift */,
+				F41100332AE8600100461628 /* SleeperClient.swift */,
+				F41100342AE8600100461628 /* WatchBridge.swift */,
+				F41000082AE8500100461628 /* RankWidgetSnapshot.swift */,
+				F41000092AE8500100461628 /* AppGroup.swift */,
+				F410000A2AE8500100461628 /* Draft.entitlements */,
+				F41200092AE8700100461628 /* Info.plist */,
+				F3CB289E2ABAA33F008CDCC7 /* Views */,
 				F3164CCB2AB4DE1D00D54775 /* UserCombineStructs */,
 				F3EC574F2AAED77000E519EC /* API Calls */,
 				F3A7DC1B2A9FB57A00496553 /* Assets.xcassets */,
 				F3A7DC1D2A9FB57A00496553 /* Preview Content */,
+				F3D93F6F2AD5B64300461627 /* UserContainer.xcdatamodeld */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -132,6 +350,17 @@
 				F3A7DC1E2A9FB57A00496553 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F3CB289E2ABAA33F008CDCC7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3CB289C2ABA7184008CDCC7 /* WeeklyStandingsView.swift */,
+				F3C41DAD2AB7DF5700DAE0FA /* MatchupsView.swift */,
+				F3269FF72AAFF4620014A35A /* TeamInfoView.swift */,
+				F3F4E1012AE8340100461628 /* DraftChrome.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		F3EC57462AAEC7D900E519EC /* Rosters */ = {
@@ -146,12 +375,71 @@
 		F3EC574F2AAED77000E519EC /* API Calls */ = {
 			isa = PBXGroup;
 			children = (
+				F3E1A2012AE8110100461628 /* SleeperConfig.swift */,
+				F3F2C1042AE8320100461628 /* Players */,
 				F3EC57462AAEC7D900E519EC /* Rosters */,
 				F32595562AAD77690027DB3D /* Users */,
 				F325952F2AAD48410027DB3D /* League */,
 				F390D8EA2AB042C9007A0E27 /* New Group */,
 			);
 			path = "API Calls";
+			sourceTree = "<group>";
+		};
+		F3F2C1042AE8320100461628 /* Players */ = {
+			isa = PBXGroup;
+			children = (
+				F3F2C1022AE8320100461628 /* PlayersController.swift */,
+				F3F2C1002AE8320100461628 /* PlayersInfo.swift */,
+			);
+			path = Players;
+			sourceTree = "<group>";
+		};
+		F41000302AE8500100461628 /* DraftWidget */ = {
+			isa = PBXGroup;
+			children = (
+				F41000032AE8500100461628 /* DraftWidgetBundle.swift */,
+				F41000022AE8500100461628 /* RankWidget.swift */,
+				F41100302AE8600100461628 /* WidgetShared.swift */,
+				F41100312AE8600100461628 /* MatchupWidget.swift */,
+				F41100322AE8600100461628 /* StatsWidget.swift */,
+				F41200082AE8700100461628 /* MatchupLiveActivityWidget.swift */,
+				F41000072AE8500100461628 /* Assets.xcassets */,
+				F41000062AE8500100461628 /* DraftWidget.entitlements */,
+				F41000052AE8500100461628 /* Info.plist */,
+			);
+			path = DraftWidget;
+			sourceTree = "<group>";
+		};
+		F41000312AE8500100461628 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F41000202AE8500100461628 /* WidgetKit.framework */,
+				F41000212AE8500100461628 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F41100802AE8600100461628 /* DraftWatch */ = {
+			isa = PBXGroup;
+			children = (
+				F41100022AE8600100461628 /* DraftWatchApp.swift */,
+				F41100032AE8600100461628 /* WatchRankView.swift */,
+				F41100062AE8600100461628 /* Assets.xcassets */,
+				F41100052AE8600100461628 /* DraftWatch.entitlements */,
+				F41100042AE8600100461628 /* Info.plist */,
+			);
+			path = DraftWatch;
+			sourceTree = "<group>";
+		};
+		F41100812AE8600100461628 /* DraftWatchWidget */ = {
+			isa = PBXGroup;
+			children = (
+				F41100082AE8600100461628 /* DraftWatchWidgetBundle.swift */,
+				F411000B2AE8600100461628 /* Assets.xcassets */,
+				F411000A2AE8600100461628 /* DraftWatchWidget.entitlements */,
+				F41100092AE8600100461628 /* Info.plist */,
+			);
+			path = DraftWatchWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,15 +452,72 @@
 				F3A7DC102A9FB57900496553 /* Sources */,
 				F3A7DC112A9FB57900496553 /* Frameworks */,
 				F3A7DC122A9FB57900496553 /* Resources */,
+				F41000432AE8500100461628 /* Embed Foundation Extensions */,
+				F41100472AE8600100461628 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F41000612AE8500100461628 /* PBXTargetDependency */,
+				F41100632AE8600100461628 /* PBXTargetDependency */,
 			);
 			name = Draft;
 			productName = Draft;
 			productReference = F3A7DC142A9FB57900496553 /* Draft.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F41000502AE8500100461628 /* DraftWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F41000722AE8500100461628 /* Build configuration list for PBXNativeTarget "DraftWidget" */;
+			buildPhases = (
+				F41000402AE8500100461628 /* Sources */,
+				F41000412AE8500100461628 /* Frameworks */,
+				F41000422AE8500100461628 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DraftWidget;
+			productName = DraftWidget;
+			productReference = F41000012AE8500100461628 /* DraftWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		F41100502AE8600100461628 /* DraftWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F41100742AE8600100461628 /* Build configuration list for PBXNativeTarget "DraftWatch" */;
+			buildPhases = (
+				F41100402AE8600100461628 /* Sources */,
+				F41100412AE8600100461628 /* Frameworks */,
+				F41100422AE8600100461628 /* Resources */,
+				F41100432AE8600100461628 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F41100622AE8600100461628 /* PBXTargetDependency */,
+			);
+			name = DraftWatch;
+			productName = DraftWatch;
+			productReference = F41100012AE8600100461628 /* DraftWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F41100512AE8600100461628 /* DraftWatchWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F41100752AE8600100461628 /* Build configuration list for PBXNativeTarget "DraftWatchWidget" */;
+			buildPhases = (
+				F41100442AE8600100461628 /* Sources */,
+				F41100452AE8600100461628 /* Frameworks */,
+				F41100462AE8600100461628 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DraftWatchWidget;
+			productName = DraftWatchWidget;
+			productReference = F41100072AE8600100461628 /* DraftWatchWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -182,10 +527,19 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 2660;
 				TargetAttributes = {
 					F3A7DC132A9FB57900496553 = {
 						CreatedOnToolsVersion = 14.3.1;
+					};
+					F41000502AE8500100461628 = {
+						CreatedOnToolsVersion = 26.0;
+					};
+					F41100502AE8600100461628 = {
+						CreatedOnToolsVersion = 26.0;
+					};
+					F41100512AE8600100461628 = {
+						CreatedOnToolsVersion = 26.0;
 					};
 				};
 			};
@@ -203,6 +557,9 @@
 			projectRoot = "";
 			targets = (
 				F3A7DC132A9FB57900496553 /* Draft */,
+				F41000502AE8500100461628 /* DraftWidget */,
+				F41100502AE8600100461628 /* DraftWatch */,
+				F41100512AE8600100461628 /* DraftWatchWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -217,6 +574,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F41000422AE8500100461628 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F41000172AE8500100461628 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F41100422AE8600100461628 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F41100172AE8600100461628 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F41100462AE8600100461628 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F41100222AE8600100461628 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -224,31 +605,126 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3E1A2022AE8110100461628 /* SleeperConfig.swift in Sources */,
+				F3F2C1032AE8320100461628 /* PlayersController.swift in Sources */,
+				F3F2C1012AE8320100461628 /* PlayersInfo.swift in Sources */,
 				F3EC57452AAEC79600E519EC /* RosterController.swift in Sources */,
 				F3269FF82AAFF4620014A35A /* TeamInfoView.swift in Sources */,
+				F3F4E1022AE8340100461628 /* DraftChrome.swift in Sources */,
 				F32595532AAD771C0027DB3D /* UsersController.swift in Sources */,
 				F3FED9E12AB0A45B0092BC60 /* UsersAndMatchups.swift in Sources */,
 				F34EEFFC2AA17618004E22AC /* ContentViewController.swift in Sources */,
+				F3D93F712AD5B64300461627 /* UserContainer.xcdatamodeld in Sources */,
 				F390D8E72AB0425F007A0E27 /* MatchupController.swift in Sources */,
 				F3EC57432AAEC52800E519EC /* RostersInfo.swift in Sources */,
 				F390D8E92AB042B8007A0E27 /* MatchupsInfo.swift in Sources */,
 				F34EEFFA2AA17313004E22AC /* LeagueController.swift in Sources */,
 				F32595552AAD77620027DB3D /* UsersInfo.swift in Sources */,
 				F34EEFF82AA16F0C004E22AC /* LeagueInfo.swift in Sources */,
+				F3CB289D2ABA7184008CDCC7 /* WeeklyStandingsView.swift in Sources */,
 				F3C41DAE2AB7DF5700DAE0FA /* MatchupsView.swift in Sources */,
 				F3A7DC1A2A9FB57900496553 /* ContentView.swift in Sources */,
 				F3EC57532AAEF9DC00E519EC /* UserWithInfo.swift in Sources */,
 				F3A7DC182A9FB57900496553 /* DraftApp.swift in Sources */,
+				F3E8C4022AE8211100461628 /* PersistenceController.swift in Sources */,
+				F3E8C4042AE8211100461628 /* LeagueStore.swift in Sources */,
+				F41000142AE8500100461628 /* RankWidgetSnapshot.swift in Sources */,
+				F41000162AE8500100461628 /* AppGroup.swift in Sources */,
+				F41100162AE8600100461628 /* SleeperClient.swift in Sources */,
+				F41100152AE8600100461628 /* WatchBridge.swift in Sources */,
+				F41201012AE8700100461628 /* LeagueSnapshot.swift in Sources */,
+				F41201022AE8700100461628 /* LeagueRefresher.swift in Sources */,
+				F41201032AE8700100461628 /* GameDayRefresh.swift in Sources */,
+				F41201042AE8700100461628 /* MatchupActivity.swift in Sources */,
+				F41201052AE8700100461628 /* DraftRoute.swift in Sources */,
+				F41201062AE8700100461628 /* GameDay.swift in Sources */,
+				F41201072AE8700100461628 /* MatchupLiveActivity.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F41000402AE8500100461628 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F41000112AE8500100461628 /* DraftWidgetBundle.swift in Sources */,
+				F41000102AE8500100461628 /* RankWidget.swift in Sources */,
+				F411001D2AE8600100461628 /* WidgetShared.swift in Sources */,
+				F411001E2AE8600100461628 /* MatchupWidget.swift in Sources */,
+				F411001F2AE8600100461628 /* StatsWidget.swift in Sources */,
+				F41000132AE8500100461628 /* RankWidgetSnapshot.swift in Sources */,
+				F41000152AE8500100461628 /* AppGroup.swift in Sources */,
+				F41202012AE8700100461628 /* MatchupActivity.swift in Sources */,
+				F41202022AE8700100461628 /* DraftRoute.swift in Sources */,
+				F41202032AE8700100461628 /* MatchupLiveActivityWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F41100402AE8600100461628 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F41100102AE8600100461628 /* DraftWatchApp.swift in Sources */,
+				F41100112AE8600100461628 /* WatchRankView.swift in Sources */,
+				F41100122AE8600100461628 /* RankWidgetSnapshot.swift in Sources */,
+				F41100132AE8600100461628 /* AppGroup.swift in Sources */,
+				F41100142AE8600100461628 /* WatchBridge.swift in Sources */,
+				F41203012AE8700100461628 /* SleeperClient.swift in Sources */,
+				F41203022AE8700100461628 /* SleeperConfig.swift in Sources */,
+				F41203032AE8700100461628 /* LeagueInfo.swift in Sources */,
+				F41203042AE8700100461628 /* LeagueController.swift in Sources */,
+				F41203052AE8700100461628 /* UsersInfo.swift in Sources */,
+				F41203062AE8700100461628 /* UsersController.swift in Sources */,
+				F41203072AE8700100461628 /* RostersInfo.swift in Sources */,
+				F41203082AE8700100461628 /* RosterController.swift in Sources */,
+				F41203092AE8700100461628 /* MatchupsInfo.swift in Sources */,
+				F41203102AE8700100461628 /* MatchupController.swift in Sources */,
+				F41203112AE8700100461628 /* PlayersInfo.swift in Sources */,
+				F41203122AE8700100461628 /* UsersAndMatchups.swift in Sources */,
+				F41203132AE8700100461628 /* UserWithInfo.swift in Sources */,
+				F41203142AE8700100461628 /* LeagueSnapshot.swift in Sources */,
+				F41203152AE8700100461628 /* LeagueRefresher.swift in Sources */,
+				F41203162AE8700100461628 /* GameDay.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F41100442AE8600100461628 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F41100182AE8600100461628 /* DraftWatchWidgetBundle.swift in Sources */,
+				F41100192AE8600100461628 /* RankWidget.swift in Sources */,
+				F411001A2AE8600100461628 /* WidgetShared.swift in Sources */,
+				F411001B2AE8600100461628 /* RankWidgetSnapshot.swift in Sources */,
+				F411001C2AE8600100461628 /* AppGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F41000612AE8500100461628 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F41000502AE8500100461628 /* DraftWidget */;
+			targetProxy = F41000602AE8500100461628 /* PBXContainerItemProxy */;
+		};
+		F41100622AE8600100461628 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F41100512AE8600100461628 /* DraftWatchWidget */;
+			targetProxy = F41100602AE8600100461628 /* PBXContainerItemProxy */;
+		};
+		F41100632AE8600100461628 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F41100502AE8600100461628 /* DraftWatch */;
+			targetProxy = F41100612AE8600100461628 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		F3A7DC202A9FB57A00496553 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -279,8 +755,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 56E3PH5VD6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -295,11 +773,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -309,6 +788,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -339,8 +819,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 56E3PH5VD6;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -349,10 +831,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -364,11 +847,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Draft/Draft.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Draft/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Draft/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -379,10 +866,14 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Draft;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -392,11 +883,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Draft/Draft.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Draft/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Draft/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -407,11 +902,193 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Draft;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F41000702AE8500100461628 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DraftWidget/DraftWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DraftWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Draft;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy.RankWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F41000712AE8500100461628 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DraftWidget/DraftWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DraftWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Draft;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy.RankWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F41100702AE8600100461628 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DraftWatch/DraftWatch.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DraftWatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Draft;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.example.DraftFantasy;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		F41100712AE8600100461628 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DraftWatch/DraftWatch.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DraftWatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Draft;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.example.DraftFantasy;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		F41100722AE8600100461628 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DraftWatchWidget/DraftWatchWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DraftWatchWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Draft;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy.watchkitapp.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		F41100732AE8600100461628 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DraftWatchWidget/DraftWatchWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DraftWatchWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Draft;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy.watchkitapp.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Release;
 		};
@@ -436,7 +1113,47 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		F41000722AE8500100461628 /* Build configuration list for PBXNativeTarget "DraftWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F41000702AE8500100461628 /* Debug */,
+				F41000712AE8500100461628 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F41100742AE8600100461628 /* Build configuration list for PBXNativeTarget "DraftWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F41100702AE8600100461628 /* Debug */,
+				F41100712AE8600100461628 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F41100752AE8600100461628 /* Build configuration list for PBXNativeTarget "DraftWatchWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F41100722AE8600100461628 /* Debug */,
+				F41100732AE8600100461628 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F3D93F6F2AD5B64300461627 /* UserContainer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F3D93F702AD5B64300461627 /* UserContainer.xcdatamodel */,
+			);
+			currentVersion = F3D93F702AD5B64300461627 /* UserContainer.xcdatamodel */;
+			path = UserContainer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F3A7DC0C2A9FB57900496553 /* Project object */;
 }

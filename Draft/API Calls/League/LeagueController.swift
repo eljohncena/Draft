@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 class LeagueController {
 
@@ -14,35 +13,67 @@ class LeagueController {
         case itemNotFound
         case decodingFailed
     }
-    
+
     func fetchLeagueInfo() async throws -> LeagueInfo {
-
-        let urlComponents = URLComponents(string: "https://api.sleeper.app/v1/league/989252508654567424")!
-
-        let (data,response) = try await URLSession.shared.data(from: urlComponents.url!)
-
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            print("Failed to fetch JSON League")
-            throw LeagueControllerError.itemNotFound
-        }
-
-        print(httpResponse.statusCode)
-        
-//        case 200: print("All Clear")
-//        case 400: print("Bad Request -- Your request is Invalid")
-//        case 404: print("Too Many Requests -- You're requesting too mauch")
-//        case 500: print("Internal Server Error")
-//        case 503: print("Service unavailable; offline for maintenance")
-        
-        var decodedResponse: LeagueInfo?
-        do {
-            decodedResponse = try JSONDecoder().decode(LeagueInfo.self, from: data)
-        }
-        catch {
-            print(error)
-        }
-        print("JSON League decode successful")
-        return decodedResponse!
+        try await SleeperClient.get("league/\(SleeperConfig.leagueID)")
     }
-    
+}
+
+class LeaguesController {
+
+    enum LeaguesControllerError: Error, LocalizedError {
+        case itemNotFound
+        case decodingFailed
+    }
+
+    func searchLeagues(query: String) async throws -> [LeagueSummary] {
+        let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return [] }
+
+        var found: [LeagueSummary] = []
+        var seen = Set<String>()
+
+        func append(_ leagues: [LeagueSummary]) {
+            for league in leagues where !league.leagueID.isEmpty && seen.insert(league.leagueID).inserted {
+                found.append(league)
+            }
+        }
+
+        if trimmed.allSatisfy(\.isNumber), let league = try? await fetchLeague(id: trimmed) {
+            append([league])
+        }
+
+        if let user = try? await fetchUser(trimmed), !user.userID.isEmpty {
+            let season = (try? await fetchNFLSeason()) ?? "2026"
+            if let year = Int(season) {
+                for y in stride(from: year, through: year - 3, by: -1) {
+                    if let leagues = try? await fetchLeagues(userID: user.userID, season: String(y)) {
+                        append(leagues)
+                    }
+                }
+            }
+        }
+
+        return found
+    }
+
+    func fetchLeague(id: String) async throws -> LeagueSummary {
+        try await SleeperClient.get("league/\(id)")
+    }
+
+    func fetchUser(_ usernameOrID: String) async throws -> SleeperUser {
+        try await SleeperClient.get("user/\(usernameOrID)")
+    }
+
+    func fetchLeagues(userID: String, season: String) async throws -> [LeagueSummary] {
+        try await SleeperClient.get("user/\(userID)/leagues/nfl/\(season)")
+    }
+
+    func fetchNFLSeason() async throws -> String {
+        struct NFLState: Decodable {
+            var season: String
+        }
+        let state: NFLState = try await SleeperClient.get("state/nfl")
+        return state.season
+    }
 }

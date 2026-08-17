@@ -14,6 +14,7 @@ class ContentViewController: ObservableObject{
     var userController = UsersController()
     let rosterController = RostersController()
     let matchupController = MatchupsController()
+    let playersController = PlayersController()
     
     @Published var name = ""
     @Published var totalRoster = 0
@@ -25,6 +26,13 @@ class ContentViewController: ObservableObject{
     @Published var usersWithInfo:[UsersWithInfo] = []
     @Published var matchups: [MatchupsInfo] = []
     @Published var usersAndRosters: [UsersAndMatchups] = []
+    @Published var players: [String: PlayersInfo] = [:]
+    @Published var selectedWeek: Int = 1
+    private var matchupsByWeek: [Int: [MatchupsInfo]] = [:]
+
+    var latestSelectableWeek: Int {
+        max(week, 1)
+    }
     
     enum ViewControllerError: Error {
         case localizedError
@@ -32,77 +40,169 @@ class ContentViewController: ObservableObject{
     }
     
     func startProcess() async {
-        
-        var info:LeagueInfo
-        var userInfo: [UsersInfo]
-        var rosterInfo: [RostersInfo]
-        
-        
-        do {
-            
-            info = try await leagueController.fetchLeagueInfo()
-            
-            DispatchQueue.main.async {
-                self.totalRoster = info.totalRosters
-                self.name = info.name
-                self.season = info.season
-                self.week = info.settings.leg
-            }
-            
-            print("League info process and decode successful")
-            
+        async let incomingPlayers = loadPlayersMap()
+        let cached = LeagueStore.load()
+        if let cached, !LeagueStore.shouldRefresh(cachedLeagueID: cached.leagueID) {
+            apply(cached)
+        } else {
             do {
-                let matchupsInfo = try await matchupController.fetchMatchupsInfo(week: info.settings.leg)
-                DispatchQueue.main.async {
-                    self.matchups = matchupsInfo
-                    
+                var snapshot = try await LeagueRefresher.fetch(includeAvatars: true)
+                if snapshot.users.isEmpty, let cached, cached.leagueID == SleeperConfig.leagueID {
+                    apply(cached)
+                } else {
+                    if !snapshot.users.isEmpty {
+                        if let cached, cached.leagueID == snapshot.leagueID {
+                            var weeks = cached.matchupsByWeek
+                            for (weekNumber, weekMatchups) in snapshot.matchupsByWeek {
+                                weeks[weekNumber] = weekMatchups
+                            }
+                            snapshot.matchupsByWeek = weeks
+                        }
+                        LeagueStore.save(snapshot)
+                    }
+                    apply(snapshot)
                 }
             } catch {
-                print("Matchups info process failes \(ViewControllerError.localizedError)")
+                if let cached, cached.leagueID == SleeperConfig.leagueID {
+                    print("Network refresh failed; using cache")
+                    apply(cached)
+                } else {
+                    print("League info process failed: \(ViewControllerError.localizedError)")
+                }
             }
-            
-            
-            print("User Matchup process and decode successful")
-            
-            
-        } catch {
-            print("League info process failed: \(ViewControllerError.localizedError)")
         }
 
-        
+        players = await incomingPlayers
+        await ensureMatchups(through: selectedWeek)
+        applyMatchups(for: selectedWeek)
+    }
+
+    func selectLeague(_ leagueID: String) async {
+        SleeperConfig.leagueID = leagueID
+        name = ""
+        usersAndRosters = []
+        matchups = []
+        matchupsByWeek = [:]
+        selectedWeek = 1
+        await startProcess()
+    }
+
+    private func loadPlayersMap() async -> [String: PlayersInfo] {
         do {
-            
-            userInfo = try await userController.fetchUsersInfo()
-            
-            for x in 0..<userInfo.count{
-                var user = userInfo[x]
-                user.avatarImage = try await userController.fetchAvatar(from: user.metaData.avatarURL)
-                userInfo[x] = user
-            }
-            
-            DispatchQueue.main.async {
-                self.users = userInfo
-            }
-            
+            let fetched = try await playersController.fetchPlayers()
+            print("Players process and decode successful")
+            return fetched
         } catch {
-            
-            print("User info process failed \(ViewControllerError.localizedError)")
+            print("Players info process failed \(ViewControllerError.localizedError)")
+            return [:]
         }
-        print("User info process and decode successful")
-        
-        do {
-            
-            rosterInfo = try await rosterController.fetchRostersInfo()
-            DispatchQueue.main.async {
-                self.rosters = rosterInfo
+    }
+
+    func ensurePlayers(_ ids: [String]) async {
+        let needed = ids.filter { $0 != "0" && !$0.isEmpty }
+        guard needed.contains(where: { players[$0] == nil }) else { return }
+
+        if players.isEmpty {
+            let fetched = await loadPlayersMap()
+            if !fetched.isEmpty {
+                players = fetched
             }
-            
-            
-        } catch {
-            print("Roster info process failed: \(ViewControllerError.localizedError)")
         }
-        print("Roster Roster process and decode successful")
-        
+
+        let missing = needed.filter { players[$0] == nil }
+        guard !missing.isEmpty else { return }
+
+        var updates: [String: PlayersInfo] = [:]
+        let controller = playersController
+        await withTaskGroup(of: (String, PlayersInfo?).self) { group in
+            for id in missing.prefix(40) {
+                group.addTask {
+                    (id, try? await controller.fetchPlayer(id: id))
+                }
+            }
+            for await (id, player) in group {
+                if let player {
+                    updates[id] = player
+                }
+            }
+        }
+
+        if !updates.isEmpty {
+            players.merge(updates) { _, new in new }
+        }
+    }
+
+    private func apply(_ snapshot: LeagueSnapshot) {
+        totalRoster = snapshot.totalRosters
+        name = snapshot.name
+        season = snapshot.season
+        week = snapshot.week
+        users = snapshot.users
+        rosters = snapshot.rosters
+        matchupsByWeek = snapshot.matchupsByWeek
+        selectedWeek = max(snapshot.week, 1)
+        usersWithInfo = combineUsersAndRosters()
+        applyMatchups(for: selectedWeek)
+        LeagueStore.publishWidget(from: snapshot)
+        SavedLeagues.remember(
+            LeagueSummary(
+                leagueID: snapshot.leagueID,
+                name: snapshot.name,
+                season: snapshot.season,
+                totalRosters: snapshot.totalRosters
+            )
+        )
+    }
+
+    func loadWeek(_ newWeek: Int) async {
+        let clamped = min(max(newWeek, 1), latestSelectableWeek)
+        selectedWeek = clamped
+        await ensureMatchups(through: clamped)
+        applyMatchups(for: clamped)
+    }
+
+    private func ensureMatchups(through week: Int) async {
+        let missing = (1...max(week, 1)).filter { matchupsByWeek[$0] == nil }
+        guard !missing.isEmpty else { return }
+
+        let controller = matchupController
+        await withTaskGroup(of: (Int, [MatchupsInfo]?).self) { group in
+            for weekNumber in missing {
+                group.addTask {
+                    do {
+                        return (weekNumber, try await controller.fetchMatchupsInfo(week: weekNumber))
+                    } catch {
+                        return (weekNumber, nil)
+                    }
+                }
+            }
+
+            for await (weekNumber, fetched) in group {
+                if let fetched {
+                    matchupsByWeek[weekNumber] = fetched
+                }
+            }
+        }
+
+        LeagueStore.save(currentSnapshot())
+    }
+
+    private func applyMatchups(for week: Int) {
+        matchups = matchupsByWeek[week] ?? []
+        usersAndRosters = combineUsersAndMatchups(usersAndRosters: usersWithInfo)
+    }
+
+    private func currentSnapshot() -> LeagueSnapshot {
+        LeagueSnapshot(
+            leagueID: SleeperConfig.leagueID,
+            name: name,
+            season: season,
+            week: week,
+            totalRosters: totalRoster,
+            users: users,
+            rosters: rosters,
+            matchupsByWeek: matchupsByWeek
+        )
     }
 
     
@@ -126,12 +226,27 @@ class ContentViewController: ObservableObject{
 
                 let defaultUsersWithInfo = UsersWithInfo(user: user.user, userGameWinLossTie: user.userGameWinLossTie)
                 print("combineUsersAndMatchups func Failed")
-                return UsersAndMatchups(usersAndRosters: defaultUsersWithInfo, matchups: MatchupsInfo(rosterID: 0, points: 0, matchupID: 0))
+                return UsersAndMatchups(
+                    usersAndRosters: defaultUsersWithInfo,
+                    matchups: MatchupsInfo(rosterID: user.userGameWinLossTie.rosterID, points: 0, matchupID: 0),
+                    weekRecord: WeekRecord.through(
+                        week: selectedWeek,
+                        rosterID: user.userGameWinLossTie.rosterID,
+                        matchupsByWeek: matchupsByWeek
+                    )
+                )
 
                     }
             print("combineUsersAndMatchups func success")
-            return UsersAndMatchups(usersAndRosters: user, matchups: userStatistics)
+            return UsersAndMatchups(
+                usersAndRosters: user,
+                matchups: userStatistics,
+                weekRecord: WeekRecord.through(
+                    week: selectedWeek,
+                    rosterID: user.userGameWinLossTie.rosterID,
+                    matchupsByWeek: matchupsByWeek
+                )
+            )
                 }
             }
 }
-
