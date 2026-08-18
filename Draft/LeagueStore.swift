@@ -154,7 +154,7 @@ enum LeagueStore {
         let payload = RankWidgetSnapshot.make(from: snapshot)
         RankWidgetCache.write(payload)
         WatchBridge.shared.push(payload)
-        #if os(iOS) && canImport(ActivityKit)
+        #if os(iOS) && !targetEnvironment(macCatalyst) && canImport(ActivityKit)
         MatchupLiveActivity.sync(payload)
         #endif
     }

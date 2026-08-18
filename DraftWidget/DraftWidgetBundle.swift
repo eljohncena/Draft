@@ -15,7 +15,7 @@ struct DraftWidgetBundle: WidgetBundle {
         MatchupWidget()
         StatsWidget()
         StandingsWidget()
-        #if canImport(ActivityKit)
+        #if os(iOS) && !targetEnvironment(macCatalyst) && canImport(ActivityKit)
         MatchupLiveActivityWidget()
         #endif
     }

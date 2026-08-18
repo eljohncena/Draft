@@ -52,7 +52,7 @@ enum SleeperConfig {
         RankWidgetCache.reload()
         if let snapshot = RankWidgetCache.read() {
             WatchBridge.shared.push(snapshot)
-            #if os(iOS) && canImport(ActivityKit)
+            #if os(iOS) && !targetEnvironment(macCatalyst) && canImport(ActivityKit)
             MatchupLiveActivity.sync(snapshot)
             #endif
         }

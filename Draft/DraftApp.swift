@@ -26,6 +26,7 @@ struct DraftApp: App {
                 .onAppear {
                     WatchBridge.shared.activate()
                     #if os(iOS)
+                    LeagueAlertCenter.shared.activate()
                     GameDayRefresh.schedule()
                     #endif
                 }

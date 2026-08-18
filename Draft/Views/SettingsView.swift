@@ -8,10 +8,69 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @ObservedObject var manager: ContentViewController
+    @AppStorage("sleeperAlertsEnabled", store: AppGroup.defaults) private var alertsEnabled = false
+
+    var body: some View {
+        Form {
+            Section {
+                NavigationLink {
+                    LeaguesView(manager: manager)
+                } label: {
+                    settingsRow(
+                        title: "Leagues",
+                        detail: manager.name.isEmpty ? SleeperConfig.leagueID : manager.name
+                    )
+                }
+                .accessibilityLabel("Leagues")
+                .accessibilityValue(manager.name.isEmpty ? SleeperConfig.leagueID : manager.name)
+            } header: {
+                Text("League")
+            }
+
+            Section {
+                NavigationLink {
+                    FeedbackSettingsView()
+                } label: {
+                    settingsRow(title: "Feedback", detail: "Bugs and enhancements")
+                }
+                .accessibilityHint("Opens the form to send a bug or enhancement.")
+
+                NavigationLink {
+                    NotificationSettingsView()
+                } label: {
+                    settingsRow(title: "Notifications", detail: alertsEnabled ? "On" : "Off")
+                }
+                .accessibilityValue(alertsEnabled ? "On" : "Off")
+            }
+
+            Section("About") {
+                LabeledContent("Version", value: FeedbackRequest.appVersion)
+                LabeledContent("League") {
+                    Text(SleeperConfig.leagueID)
+                        .font(.caption.monospaced())
+                        .textSelection(.enabled)
+                }
+            }
+        }
+        .navigationTitle("Settings")
+        .navigationBarTitleDisplayMode(.large)
+    }
+
+    private func settingsRow(title: String, detail: String) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(title)
+            Text(detail)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
+    }
+}
+
+private struct FeedbackSettingsView: View {
     @State private var kind: FeedbackKind = .bug
     @State private var title = ""
     @State private var details = ""
-
     @Environment(\.openURL) private var openURL
 
     private var request: FeedbackRequest {
@@ -45,8 +104,6 @@ struct SettingsView: View {
                     .lineLimit(5...12)
                     .textInputAutocapitalization(.sentences)
                     .accessibilityLabel("Feedback details")
-            } header: {
-                Text("Feedback")
             } footer: {
                 Text(
                     FeedbackRequest.hasDestination
@@ -73,19 +130,42 @@ struct SettingsView: View {
                 }
                 .disabled(!canCompose)
             }
+        }
+        .navigationTitle("Feedback")
+        .navigationBarTitleDisplayMode(.inline)
+        .scrollDismissesKeyboard(.interactively)
+    }
+}
 
-            Section("About") {
-                LabeledContent("Version", value: FeedbackRequest.appVersion)
-                LabeledContent("League") {
-                    Text(SleeperConfig.leagueID)
-                        .font(.caption.monospaced())
-                        .textSelection(.enabled)
+private struct NotificationSettingsView: View {
+    @AppStorage("sleeperAlertsEnabled", store: AppGroup.defaults) private var alertsEnabled = false
+
+    private var alertsBinding: Binding<Bool> {
+        Binding(
+            get: { alertsEnabled },
+            set: { newValue in
+                if newValue {
+                    Task {
+                        let allowed = await LeagueAlerts.requestAccess()
+                        alertsEnabled = allowed
+                    }
+                } else {
+                    alertsEnabled = false
                 }
             }
+        )
+    }
+
+    var body: some View {
+        Form {
+            Section {
+                Toggle("League alerts", isOn: alertsBinding)
+            } footer: {
+                Text("Local notifications when your team wins or a rostered player’s injury status changes. Turn this on and allow alerts. Remote push from a server needs a current Apple Developer membership.")
+            }
         }
-        .navigationTitle("Settings")
-        .navigationBarTitleDisplayMode(.large)
-        .scrollDismissesKeyboard(.interactively)
+        .navigationTitle("Notifications")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -164,20 +244,20 @@ struct FeedbackRequest {
 
 #Preview("Settings light") {
     NavigationStack {
-        SettingsView()
+        SettingsView(manager: ContentViewController())
     }
 }
 
 #Preview("Settings dark") {
     NavigationStack {
-        SettingsView()
+        SettingsView(manager: ContentViewController())
     }
     .preferredColorScheme(.dark)
 }
 
 #Preview("Settings large type") {
     NavigationStack {
-        SettingsView()
+        SettingsView(manager: ContentViewController())
     }
     .dynamicTypeSize(.accessibility2)
 }

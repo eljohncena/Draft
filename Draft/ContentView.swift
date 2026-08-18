@@ -10,19 +10,31 @@ import SwiftUI
 struct ContentView: View {
 
     enum AppTab: Hashable {
-        case standings, matchups, news, leagues, settings
+        case feed, standings, matchups, news, settings
     }
 
     @StateObject var manager = ContentViewController()
-    @State private var tab: AppTab = .standings
+    @State private var tab: AppTab = .feed
     @State private var standingsPath = NavigationPath()
     @State private var pendingRoute: DraftRoute?
 
     var body: some View {
         TabView(selection: $tab) {
+            NavigationStack {
+                LeagueFeedView(
+                    users: manager.usersAndRosters,
+                    week: manager.selectedWeek,
+                    players: manager.players,
+                    leagueName: manager.name
+                )
+                .toolbar { weekToolbar }
+            }
+            .tabItem { Label("Feed", systemImage: "dot.radiowaves.up.forward") }
+            .tag(AppTab.feed)
+
             NavigationStack(path: $standingsPath) {
                 WeeklyStandingsView(users: manager.usersAndRosters, week: manager.selectedWeek)
-                    .navigationTitle(manager.name.isEmpty ? "Standings" : manager.name)
+                    .navigationTitle("Standings")
                     .navigationBarTitleDisplayMode(.large)
                     .toolbar { weekToolbar }
                     .navigationDestination(for: UsersAndMatchups.self) { selected in
@@ -36,26 +48,28 @@ struct ContentView: View {
             .tag(AppTab.standings)
 
             NavigationStack {
-                MatchupsView(users: manager.usersAndRosters, week: manager.selectedWeek)
+                MatchupsView(
+                    users: manager.usersAndRosters,
+                    week: manager.selectedWeek,
+                    currentWeek: manager.week
+                )
                     .toolbar { weekToolbar }
             }
             .tabItem { Label("Matchups", systemImage: "arrow.left.arrow.right") }
             .tag(AppTab.matchups)
 
             NavigationStack {
-                NewsView(users: manager.usersAndRosters, players: manager.players)
+                NewsView(
+                    users: manager.usersAndRosters,
+                    players: manager.players,
+                    season: manager.season
+                )
             }
             .tabItem { Label("News", systemImage: "newspaper") }
             .tag(AppTab.news)
 
             NavigationStack {
-                LeaguesView(manager: manager)
-            }
-            .tabItem { Label("Leagues", systemImage: "sportscourt") }
-            .tag(AppTab.leagues)
-
-            NavigationStack {
-                SettingsView()
+                SettingsView(manager: manager)
             }
             .tabItem { Label("Settings", systemImage: "gearshape") }
             .tag(AppTab.settings)
@@ -201,7 +215,7 @@ struct LeaguesView: View {
         }
         .listStyle(.insetGrouped)
         .navigationTitle("Leagues")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $query, prompt: "Username or league ID")
         .onSubmit(of: .search) {
             Task { await search() }
@@ -331,8 +345,11 @@ struct NewsView: View {
 
     var users: [UsersAndMatchups]
     var players: [String: PlayersInfo]
+    var season: String
 
+    @AppStorage("sleeperMyUserID", store: AppGroup.defaults) private var myUserID = ""
     @State private var scope: Scope = .league
+    @State private var query = ""
     @State private var nflNews: [NewsItem] = []
     @State private var sleeperNews: [NewsItem] = []
     @State private var isLoading = false
@@ -342,9 +359,22 @@ struct NewsView: View {
 
     private enum Scope: String, CaseIterable, Identifiable {
         case league = "League"
+        case mine = "My team"
         case nfl = "NFL"
 
         var id: String { rawValue }
+    }
+
+    private var visibleScopes: [Scope] {
+        myUserID.isEmpty ? [.league, .nfl] : Scope.allCases
+    }
+
+    private var myRoster: RostersInfo? {
+        users.first { $0.usersAndRosters.user.userID == myUserID }?.usersAndRosters.userGameWinLossTie
+    }
+
+    private var myPlayerIDs: Set<String> {
+        Set((myRoster?.players ?? []).filter { $0 != "0" && !$0.isEmpty })
     }
 
     private var rosteredPlayers: [PlayersInfo] {
@@ -359,52 +389,137 @@ struct NewsView: View {
         return result
     }
 
+    private var isSeason: Bool {
+        NewsSeason.isActive(season: season.isEmpty ? "2026" : season)
+    }
+
+    private var inSeasonNFL: [NewsItem] {
+        seasonFiltered(nflNews)
+    }
+
+    private var inSeasonSleeper: [NewsItem] {
+        seasonFiltered(sleeperNews)
+    }
+
+    private var nflHeadlines: [NewsItem] {
+        let items = searched(inSeasonNFL)
+        if query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return Array(items.prefix(NewsSeason.nflHeadlineLimit))
+        }
+        return items
+    }
+
     private var rosteredTeams: [String] {
         Array(Set(rosteredPlayers.map(\.team).filter { !$0.isEmpty })).sorted()
     }
 
     private var playerStories: [NewsItem] {
-        let fromESPN = nflNews.filter { article in
-            rosteredPlayers.contains { article.mentions(player: $0) }
-        }
-        return deduped(sleeperNews + fromESPN)
+        searched(stories(for: rosteredPlayers, includingSleeper: true))
     }
 
     private var teamStories: [NewsItem] {
-        nflNews.filter { article in
-            rosteredTeams.contains { article.mentions(team: $0) }
+        let playerIDs = Set(playerStories.map(\.id))
+        return searched(inSeasonNFL.filter { article in
+            !playerIDs.contains(article.id)
+                && rosteredTeams.contains { article.mentions(team: $0) }
+        })
+    }
+
+    private var myPlayers: [PlayersInfo] {
+        rosteredPlayers.filter { myPlayerIDs.contains($0.playerID) }
+    }
+
+    private var myPlayerStories: [NewsItem] {
+        searched(stories(for: myPlayers, includingSleeper: true))
+    }
+
+    private var myTeamStories: [NewsItem] {
+        let myTeams = Array(Set(myPlayers.map(\.team).filter { !$0.isEmpty }))
+        let playerIDs = Set(myPlayerStories.map(\.id))
+        return searched(inSeasonNFL.filter { article in
+            !playerIDs.contains(article.id)
+                && myTeams.contains { article.mentions(team: $0) }
+        })
+    }
+
+    private func stories(for watched: [PlayersInfo], includingSleeper: Bool) -> [NewsItem] {
+        let fromESPN = inSeasonNFL.filter { article in
+            watched.contains { article.mentions(player: $0) }
         }
+        let sleeper = includingSleeper
+            ? inSeasonSleeper.filter { item in
+                watched.contains { item.mentions(player: $0) }
+            }
+            : []
+        return deduped(sleeper + fromESPN)
+    }
+
+    private func seasonFiltered(_ items: [NewsItem]) -> [NewsItem] {
+        let year = season.isEmpty ? "2026" : season
+        return items
+            .filter { NewsSeason.contains(published: $0.published, season: year) }
+            .sorted { ($0.published ?? .distantPast) > ($1.published ?? .distantPast) }
+    }
+
+    private func searched(_ items: [NewsItem]) -> [NewsItem] {
+        items.filter { $0.matches(query) }
     }
 
     var body: some View {
         List {
             Picker("News", selection: $scope) {
-                ForEach(Scope.allCases) { value in
+                ForEach(visibleScopes) { value in
                     Text(value.rawValue).tag(value)
                 }
             }
             .pickerStyle(.segmented)
             .listRowBackground(Color.clear)
             .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+            .onChange(of: myUserID) { _, id in
+                if id.isEmpty, scope == .mine {
+                    scope = .league
+                }
+            }
 
-            if scope == .league {
-                if rosteredPlayers.isEmpty {
-                    Section {
-                        Text("No rostered players yet. NFL headlines are on the NFL tab. After the draft, this tab follows players and their NFL teams.")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-                } else {
-                    newsSection("Players", items: playerStories, empty: "No recent player news for this league.")
-                    newsSection("NFL teams", items: teamStories, empty: "No recent team news for rostered NFL clubs.")
+            if !isSeason {
+                Section {
+                    Text("Headlines show during the NFL season, September through the Super Bowl. Search still works once games start.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
             } else {
-                newsSection("NFL", items: nflNews, empty: "No NFL headlines right now.")
+                switch scope {
+                case .league:
+                    if rosteredPlayers.isEmpty {
+                        Section {
+                            Text("No rostered players yet. NFL headlines are on the NFL tab. After the draft, this tab follows players and their NFL teams.")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                    } else {
+                        newsSection("Players", items: playerStories, empty: emptyCopy(for: "players"))
+                        newsSection("NFL teams", items: teamStories, empty: emptyCopy(for: "teams"))
+                    }
+                case .mine:
+                    if myPlayers.isEmpty {
+                        Section {
+                            Text("Mark That’s me on your team to follow only your roster here.")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                    } else {
+                        newsSection("Your players", items: myPlayerStories, empty: emptyCopy(for: "your roster"))
+                        newsSection("Their NFL teams", items: myTeamStories, empty: emptyCopy(for: "your players’ clubs"))
+                    }
+                case .nfl:
+                    newsSection("NFL", items: nflHeadlines, empty: emptyCopy(for: "the NFL"))
+                }
             }
         }
         .listStyle(.insetGrouped)
         .navigationTitle("News")
         .navigationBarTitleDisplayMode(.large)
+        .searchable(text: $query, prompt: "Players, teams, headlines")
         .overlay {
             if isLoading && nflNews.isEmpty && sleeperNews.isEmpty {
                 ProgressView()
@@ -432,6 +547,13 @@ struct NewsView: View {
         .task(id: rosterSignature) {
             await load()
         }
+    }
+
+    private func emptyCopy(for topic: String) -> String {
+        if !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return "No headlines match that search."
+        }
+        return "No recent news for \(topic)."
     }
 
     private var rosterSignature: String {
@@ -464,12 +586,28 @@ struct NewsView: View {
             }
         }
 
-        let injured = rosteredPlayers.filter { !$0.injuryStatus.isEmpty }.map(\.playerID)
-        let targets = Array((injured.isEmpty ? rosteredPlayers.map(\.playerID) : injured).prefix(12))
+        let targets = sleeperTargets
         if forceSleeper || sleeperNews.isEmpty {
             sleeperNews = await controller.fetchNews(forPlayerIDs: targets)
         }
         isLoading = false
+    }
+
+    private var sleeperTargets: [String] {
+        var ordered: [String] = []
+        var seen = Set<String>()
+        func append(_ ids: [String]) {
+            for id in ids where id != "0" && !id.isEmpty && seen.insert(id).inserted {
+                ordered.append(id)
+            }
+        }
+        append(rosteredPlayers.filter { !$0.injuryStatus.isEmpty }.map(\.playerID))
+        if let mine = myRoster {
+            append(mine.starters)
+            append(mine.players)
+        }
+        append(rosteredPlayers.map(\.playerID))
+        return Array(ordered.prefix(12))
     }
 
     private func deduped(_ items: [NewsItem]) -> [NewsItem] {

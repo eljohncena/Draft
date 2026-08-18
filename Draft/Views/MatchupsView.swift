@@ -11,8 +11,21 @@ struct MatchupsView: View {
 
     var users: [UsersAndMatchups]
     var week: Int
+    var currentWeek: Int
 
     @ObservedObject private var ballot = MatchupBallot.shared
+
+    private var scoringHasStarted: Bool {
+        users.contains { $0.matchups.points > 0 }
+    }
+
+    private var votesLocked: Bool {
+        !GameDay.canChangeMatchupVote(
+            selectedWeek: week,
+            currentWeek: currentWeek,
+            scoringHasStarted: scoringHasStarted
+        )
+    }
 
     private var uniquePairings: [UsersAndMatchups] {
         var seenMatchupIDs = Set<Int>()
@@ -79,10 +92,10 @@ struct MatchupsView: View {
             }
 
             if let tally {
-                Text(tally.total == 0 ? "No votes yet" : (tally.total == 1 ? "1 vote" : "\(tally.total) votes"))
+                Text(voteStatusText(tally))
                     .font(.caption2)
                     .foregroundStyle(.secondary)
-                    .accessibilityHidden(true)
+                    .accessibilityLabel(voteStatusText(tally))
             }
         }
         .padding(16)
@@ -119,16 +132,22 @@ struct MatchupsView: View {
                     opponentName: opponent?.usersAndRosters.user.metaData.teamName ?? "opponent",
                     pickedThisTeam: tally.myWinnerUserID == userID,
                     pickedOpponent: tally.myWinnerUserID != nil && tally.myWinnerUserID != userID,
-                    hasVoted: tally.hasVoted,
+                    locked: votesLocked,
                     onUp: {
-                        ballot.cast(week: week, matchupID: user.matchups.matchupID, winnerUserID: userID)
+                        ballot.cast(
+                            week: week,
+                            matchupID: user.matchups.matchupID,
+                            winnerUserID: userID,
+                            locked: votesLocked
+                        )
                     },
                     onDown: {
                         if let opponent {
                             ballot.cast(
                                 week: week,
                                 matchupID: user.matchups.matchupID,
-                                winnerUserID: opponent.usersAndRosters.user.userID
+                                winnerUserID: opponent.usersAndRosters.user.userID,
+                                locked: votesLocked
                             )
                         }
                     }
@@ -137,6 +156,19 @@ struct MatchupsView: View {
         }
         .frame(maxWidth: .infinity)
     }
+
+    private func voteStatusText(_ tally: MatchupBallot.Tally) -> String {
+        let count = tally.total == 0
+            ? "No votes yet"
+            : (tally.total == 1 ? "1 vote" : "\(tally.total) votes")
+        if votesLocked {
+            return tally.total == 0 ? "Voting locked" : "\(count) · locked"
+        }
+        if tally.hasVoted {
+            return "\(count) · change until kickoff"
+        }
+        return count
+    }
 }
 
 private struct MatchupVoteButtons: View {
@@ -144,7 +176,7 @@ private struct MatchupVoteButtons: View {
     let opponentName: String
     let pickedThisTeam: Bool
     let pickedOpponent: Bool
-    let hasVoted: Bool
+    let locked: Bool
     let onUp: () -> Void
     let onDown: () -> Void
 
@@ -157,14 +189,18 @@ private struct MatchupVoteButtons: View {
                 selected: pickedThisTeam,
                 action: onUp,
                 label: "Vote for \(teamName) to win",
-                hint: hasVoted ? "You already voted in this matchup" : "Submits your only vote for this matchup"
+                hint: locked
+                    ? "Voting is locked after kickoff"
+                    : "Picks \(teamName) to win. You can change this until kickoff."
             )
             voteButton(
                 systemName: pickedOpponent ? "hand.thumbsdown.fill" : "hand.thumbsdown",
                 selected: pickedOpponent,
                 action: onDown,
                 label: "Vote against \(teamName), for \(opponentName)",
-                hint: hasVoted ? "You already voted in this matchup" : "Submits your only vote for this matchup"
+                hint: locked
+                    ? "Voting is locked after kickoff"
+                    : "Picks \(opponentName) to win. You can change this until kickoff."
             )
         }
         .sensoryFeedback(.impact(flexibility: .solid, intensity: 0.7), trigger: voteTick)
@@ -179,7 +215,7 @@ private struct MatchupVoteButtons: View {
     ) -> some View {
         Button {
             action()
-            if !hasVoted {
+            if !locked {
                 voteTick += 1
             }
         } label: {
@@ -190,7 +226,7 @@ private struct MatchupVoteButtons: View {
         .buttonStyle(.bordered)
         .controlSize(.small)
         .tint(selected ? Color.accentColor : Color.secondary)
-        .disabled(hasVoted)
+        .disabled(locked)
         .accessibilityLabel(label)
         .accessibilityHint(hint)
         .accessibilityAddTraits(selected ? .isSelected : [])
@@ -227,7 +263,7 @@ struct MatchupsView_Previews: PreviewProvider {
         ]
 
         return NavigationStack {
-            MatchupsView(users: combinedUserInfo, week: 1)
+            MatchupsView(users: combinedUserInfo, week: 1, currentWeek: 1)
         }
     }
 }

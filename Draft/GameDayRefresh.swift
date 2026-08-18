@@ -54,10 +54,12 @@ enum GameDayRefresh {
 
         let work = Task {
             do {
+                let previous = await MainActor.run { LeagueStore.load() }
                 let snapshot = try await LeagueRefresher.fetch(includeAvatars: false)
                 await MainActor.run {
                     LeagueStore.save(snapshot)
                 }
+                await LeagueAlerts.evaluate(previous: previous, current: snapshot)
                 task.setTaskCompleted(success: true)
             } catch {
                 print("Game-day refresh failed: \(error.localizedDescription)")

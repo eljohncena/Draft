@@ -5,7 +5,7 @@
 //  Created by John Chavez on 8/17/26.
 //
 
-#if canImport(ActivityKit)
+#if os(iOS) && !targetEnvironment(macCatalyst) && canImport(ActivityKit)
 import ActivityKit
 import Foundation
 

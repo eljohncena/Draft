@@ -61,6 +61,9 @@ class ContentViewController: ObservableObject{
                         LeagueStore.save(snapshot)
                     }
                     apply(snapshot)
+                    #if os(iOS)
+                    Task { await LeagueAlerts.evaluate(previous: cached, current: snapshot) }
+                    #endif
                 }
             } catch {
                 if let cached, cached.leagueID == SleeperConfig.leagueID {

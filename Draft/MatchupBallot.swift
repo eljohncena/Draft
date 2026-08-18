@@ -79,19 +79,24 @@ final class MatchupBallot: ObservableObject {
     }
 
     @discardableResult
-    func cast(week: Int, matchupID: Int, winnerUserID: String) -> Bool {
+    func cast(week: Int, matchupID: Int, winnerUserID: String, locked: Bool) -> Bool {
         let leagueID = SleeperConfig.leagueID
         let voterID = AppGroup.voterID
-        guard matchupID != 0, !winnerUserID.isEmpty, !leagueID.isEmpty else {
+        guard !locked, matchupID != 0, !winnerUserID.isEmpty, !leagueID.isEmpty else {
             return false
         }
-        if votes.contains(where: {
+        if let index = votes.firstIndex(where: {
             $0.leagueID == leagueID
                 && $0.week == week
                 && $0.matchupID == matchupID
                 && $0.voterID == voterID
         }) {
-            return false
+            if votes[index].winnerUserID == winnerUserID {
+                return false
+            }
+            votes[index].winnerUserID = winnerUserID
+            persist()
+            return true
         }
 
         votes.append(
