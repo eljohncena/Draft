@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SafariServices
 
 enum DraftFormat {
     static func points(_ value: Double) -> String {
@@ -158,4 +159,21 @@ private struct DraftProminentButtonModifier: ViewModifier {
             content.buttonStyle(.glassProminent)
         }
     }
+}
+
+struct SafariView: UIViewControllerRepresentable {
+    var url: URL
+
+    func makeUIViewController(context: Context) -> SFSafariViewController {
+        let controller = SFSafariViewController(url: url)
+        controller.dismissButtonStyle = .close
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {}
+}
+
+struct WebPage: Identifiable {
+    var url: URL
+    var id: String { url.absoluteString }
 }

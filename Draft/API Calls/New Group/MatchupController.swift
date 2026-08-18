@@ -342,7 +342,8 @@ private struct SleeperNewsItem: Decodable {
             published: publishedDate,
             imageURL: nil,
             playerNames: [],
-            teams: []
+            teams: [],
+            relatedPlayerIDs: [playerID].compactMap { $0 }.filter { !$0.isEmpty }
         )
     }
 }

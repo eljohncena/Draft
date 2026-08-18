@@ -14,6 +14,13 @@
 		F41300022AE8800100461628 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41300012AE8800100461628 /* LandingView.swift */; };
 		F41400022AE8900100461628 /* MatchupBallot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41400012AE8900100461628 /* MatchupBallot.swift */; };
 		F41500022AE8A00100461628 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41500012AE8A00100461628 /* SettingsView.swift */; };
+		F41600022AE8B00100461628 /* LeaguePulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41600012AE8B00100461628 /* LeaguePulse.swift */; };
+		F41600042AE8B00100461628 /* LeagueAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41600032AE8B00100461628 /* LeagueAlerts.swift */; };
+		F41700022AE8C00100461628 /* NFLScoreboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41700012AE8C00100461628 /* NFLScoreboard.swift */; };
+		F41800122AE8D00100461628 /* NewsItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41800022AE8D00100461628 /* NewsItemTests.swift */; };
+		F41800132AE8D00100461628 /* GameDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41800032AE8D00100461628 /* GameDayTests.swift */; };
+		F41800142AE8D00100461628 /* LeagueLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41800042AE8D00100461628 /* LeagueLogicTests.swift */; };
+		F41800152AE8D00100461628 /* NFLScoreboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41800052AE8D00100461628 /* NFLScoreboardTests.swift */; };
 		F34EEFF82AA16F0C004E22AC /* LeagueInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */; };
 		F34EEFFA2AA17313004E22AC /* LeagueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFF92AA17313004E22AC /* LeagueController.swift */; };
 		F34EEFFC2AA17618004E22AC /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34EEFFB2AA17618004E22AC /* ContentViewController.swift */; };
@@ -117,6 +124,13 @@
 			remoteGlobalIDString = F41100502AE8600100461628;
 			remoteInfo = DraftWatch;
 		};
+		F41800602AE8D00100461628 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3A7DC0C2A9FB57900496553 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F3A7DC132A9FB57900496553;
+			remoteInfo = Draft;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -163,6 +177,14 @@
 		F41300012AE8800100461628 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		F41400012AE8900100461628 /* MatchupBallot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupBallot.swift; sourceTree = "<group>"; };
 		F41500012AE8A00100461628 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F41600012AE8B00100461628 /* LeaguePulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguePulse.swift; sourceTree = "<group>"; };
+		F41600032AE8B00100461628 /* LeagueAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueAlerts.swift; sourceTree = "<group>"; };
+		F41700012AE8C00100461628 /* NFLScoreboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFLScoreboard.swift; sourceTree = "<group>"; };
+		F41800012AE8D00100461628 /* DraftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DraftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F41800022AE8D00100461628 /* NewsItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemTests.swift; sourceTree = "<group>"; };
+		F41800032AE8D00100461628 /* GameDayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDayTests.swift; sourceTree = "<group>"; };
+		F41800042AE8D00100461628 /* LeagueLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueLogicTests.swift; sourceTree = "<group>"; };
+		F41800052AE8D00100461628 /* NFLScoreboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFLScoreboardTests.swift; sourceTree = "<group>"; };
 		F34EEFF72AA16F0C004E22AC /* LeagueInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueInfo.swift; sourceTree = "<group>"; };
 		F34EEFF92AA17313004E22AC /* LeagueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueController.swift; sourceTree = "<group>"; };
 		F34EEFFB2AA17618004E22AC /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
@@ -257,6 +279,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F41800412AE8D00100461628 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -303,6 +332,7 @@
 				F41000302AE8500100461628 /* DraftWidget */,
 				F41100802AE8600100461628 /* DraftWatch */,
 				F41100812AE8600100461628 /* DraftWatchWidget */,
+				F41800302AE8D00100461628 /* DraftTests */,
 				F41000312AE8500100461628 /* Frameworks */,
 				F3A7DC152A9FB57900496553 /* Products */,
 			);
@@ -315,6 +345,7 @@
 				F41000012AE8500100461628 /* DraftWidget.appex */,
 				F41100012AE8600100461628 /* DraftWatch.app */,
 				F41100072AE8600100461628 /* DraftWatchWidget.appex */,
+				F41800012AE8D00100461628 /* DraftTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,6 +370,9 @@
 				F41000082AE8500100461628 /* RankWidgetSnapshot.swift */,
 				F41000092AE8500100461628 /* AppGroup.swift */,
 				F41400012AE8900100461628 /* MatchupBallot.swift */,
+				F41600012AE8B00100461628 /* LeaguePulse.swift */,
+				F41600032AE8B00100461628 /* LeagueAlerts.swift */,
+				F41700012AE8C00100461628 /* NFLScoreboard.swift */,
 				F410000A2AE8500100461628 /* Draft.entitlements */,
 				F41200092AE8700100461628 /* Info.plist */,
 				F3CB289E2ABAA33F008CDCC7 /* Views */,
@@ -451,6 +485,17 @@
 			path = DraftWatchWidget;
 			sourceTree = "<group>";
 		};
+		F41800302AE8D00100461628 /* DraftTests */ = {
+			isa = PBXGroup;
+			children = (
+				F41800022AE8D00100461628 /* NewsItemTests.swift */,
+				F41800032AE8D00100461628 /* GameDayTests.swift */,
+				F41800042AE8D00100461628 /* LeagueLogicTests.swift */,
+				F41800052AE8D00100461628 /* NFLScoreboardTests.swift */,
+			);
+			path = DraftTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -528,6 +573,24 @@
 			productReference = F41100072AE8600100461628 /* DraftWatchWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		F41800502AE8D00100461628 /* DraftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F41800722AE8D00100461628 /* Build configuration list for PBXNativeTarget "DraftTests" */;
+			buildPhases = (
+				F41800402AE8D00100461628 /* Sources */,
+				F41800412AE8D00100461628 /* Frameworks */,
+				F41800422AE8D00100461628 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F41800612AE8D00100461628 /* PBXTargetDependency */,
+			);
+			name = DraftTests;
+			productName = DraftTests;
+			productReference = F41800012AE8D00100461628 /* DraftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -535,7 +598,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
 					F3A7DC132A9FB57900496553 = {
@@ -549,6 +612,10 @@
 					};
 					F41100512AE8600100461628 = {
 						CreatedOnToolsVersion = 26.0;
+					};
+					F41800502AE8D00100461628 = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = F3A7DC132A9FB57900496553;
 					};
 				};
 			};
@@ -569,6 +636,7 @@
 				F41000502AE8500100461628 /* DraftWidget */,
 				F41100502AE8600100461628 /* DraftWatch */,
 				F41100512AE8600100461628 /* DraftWatchWidget */,
+				F41800502AE8D00100461628 /* DraftTests */,
 			);
 		};
 /* End PBXProject section */
@@ -607,6 +675,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F41800422AE8D00100461628 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -642,6 +717,9 @@
 				F41000142AE8500100461628 /* RankWidgetSnapshot.swift in Sources */,
 				F41000162AE8500100461628 /* AppGroup.swift in Sources */,
 				F41400022AE8900100461628 /* MatchupBallot.swift in Sources */,
+				F41600022AE8B00100461628 /* LeaguePulse.swift in Sources */,
+				F41600042AE8B00100461628 /* LeagueAlerts.swift in Sources */,
+				F41700022AE8C00100461628 /* NFLScoreboard.swift in Sources */,
 				F41100162AE8600100461628 /* SleeperClient.swift in Sources */,
 				F41100152AE8600100461628 /* WatchBridge.swift in Sources */,
 				F41201012AE8700100461628 /* LeagueSnapshot.swift in Sources */,
@@ -711,6 +789,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F41800402AE8D00100461628 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F41800122AE8D00100461628 /* NewsItemTests.swift in Sources */,
+				F41800132AE8D00100461628 /* GameDayTests.swift in Sources */,
+				F41800142AE8D00100461628 /* LeagueLogicTests.swift in Sources */,
+				F41800152AE8D00100461628 /* NFLScoreboardTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -728,6 +817,11 @@
 			isa = PBXTargetDependency;
 			target = F41100502AE8600100461628 /* DraftWatch */;
 			targetProxy = F41100612AE8600100461628 /* PBXContainerItemProxy */;
+		};
+		F41800612AE8D00100461628 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F3A7DC132A9FB57900496553 /* Draft */;
+			targetProxy = F41800602AE8D00100461628 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -883,7 +977,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -919,7 +1013,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -949,7 +1043,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy.RankWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -981,7 +1075,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy.RankWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1104,6 +1198,54 @@
 			};
 			name = Release;
 		};
+		F41800702AE8D00100461628 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56E3PH5VD6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Draft.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Draft";
+			};
+			name = Debug;
+		};
+		F41800712AE8D00100461628 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56E3PH5VD6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DraftFantasy.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Draft.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Draft";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1148,6 +1290,15 @@
 			buildConfigurations = (
 				F41100722AE8600100461628 /* Debug */,
 				F41100732AE8600100461628 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F41800722AE8D00100461628 /* Build configuration list for PBXNativeTarget "DraftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F41800702AE8D00100461628 /* Debug */,
+				F41800712AE8D00100461628 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

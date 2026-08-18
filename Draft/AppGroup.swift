@@ -72,4 +72,27 @@ enum AppGroup {
         get { defaults.bool(forKey: "sleeperDidOnboard") }
         set { defaults.set(newValue, forKey: "sleeperDidOnboard") }
     }
+
+    static var alertsEnabled: Bool {
+        get { defaults.bool(forKey: "sleeperAlertsEnabled") }
+        set { defaults.set(newValue, forKey: "sleeperAlertsEnabled") }
+    }
+
+    static var lastRecordFingerprint: String {
+        get { defaults.string(forKey: "sleeperLastRecord") ?? "" }
+        set { defaults.set(newValue, forKey: "sleeperLastRecord") }
+    }
+
+    static var injuryStatuses: [String: String] {
+        get {
+            guard let data = defaults.data(forKey: "sleeperInjuryStatuses"),
+                  let map = try? JSONDecoder().decode([String: String].self, from: data) else {
+                return [:]
+            }
+            return map
+        }
+        set {
+            defaults.set((try? JSONEncoder().encode(newValue)) ?? Data(), forKey: "sleeperInjuryStatuses")
+        }
+    }
 }

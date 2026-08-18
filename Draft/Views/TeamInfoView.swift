@@ -201,7 +201,6 @@ struct PlayerNewsView: View {
     var week: Int
 
     @State private var playerNews: [NewsItem] = []
-    @State private var teamNews: [NewsItem] = []
     @State private var isLoading = false
 
     private let controller = NewsController()
@@ -218,7 +217,7 @@ struct PlayerNewsView: View {
                     .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
             }
 
-            Section("Player") {
+            Section("\(resolved.displayName)") {
                 if playerNews.isEmpty && !isLoading {
                     Text("No recent notes for \(resolved.displayName).")
                         .font(.subheadline)
@@ -229,26 +228,12 @@ struct PlayerNewsView: View {
                     }
                 }
             }
-
-            if !resolved.team.isEmpty {
-                Section("\(resolved.team) news") {
-                    if teamNews.isEmpty && !isLoading {
-                        Text("No recent \(resolved.team) headlines.")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    } else {
-                        ForEach(teamNews) { item in
-                            NewsRow(item: item)
-                        }
-                    }
-                }
-            }
         }
         .listStyle(.insetGrouped)
         .navigationTitle(resolved.displayName)
         .navigationBarTitleDisplayMode(.inline)
         .overlay {
-            if isLoading && playerNews.isEmpty && teamNews.isEmpty {
+            if isLoading && playerNews.isEmpty {
                 ProgressView()
                     .controlSize(.large)
                     .padding(20)
@@ -292,18 +277,20 @@ struct PlayerNewsView: View {
         async let sleeper = controller.fetchPlayerNews(playerID: playerID)
         async let espn = controller.fetchNFLNews()
 
-        let sleeperItems = (try? await sleeper) ?? []
-        let espnItems = (try? await espn) ?? []
-
-        let nameMatched = espnItems.filter { $0.mentions(player: resolved) }
-        var seen = Set<String>()
-        playerNews = (sleeperItems + nameMatched)
-            .sorted { ($0.published ?? .distantPast) > ($1.published ?? .distantPast) }
-            .filter { seen.insert($0.id).inserted }
-
-        teamNews = espnItems.filter { item in
-            !nameMatched.contains(item) && item.mentions(team: resolved.team)
+        let sleeperItems = ((try? await sleeper) ?? []).filter { item in
+            item.relatedPlayerIDs.contains(playerID) || item.mentions(player: resolved)
         }
+        let espnItems = ((try? await espn) ?? []).filter { item in
+            item.mentions(player: resolved)
+        }
+
+        var seen = Set<String>()
+        playerNews = Array(
+            (sleeperItems + espnItems)
+                .sorted { ($0.published ?? .distantPast) > ($1.published ?? .distantPast) }
+                .filter { seen.insert($0.id).inserted }
+                .prefix(8)
+        )
         isLoading = false
     }
 }
@@ -311,13 +298,13 @@ struct PlayerNewsView: View {
 struct NewsRow: View {
     var item: NewsItem
 
-    @Environment(\.openURL) private var openURL
+    @State private var page: WebPage?
     @ScaledMetric(relativeTo: .body) private var thumb: CGFloat = 72
 
     var body: some View {
         Button {
             if let url = item.url {
-                openURL(url)
+                page = WebPage(url: url)
             }
         } label: {
             HStack(alignment: .top, spacing: 12) {
@@ -358,9 +345,14 @@ struct NewsRow: View {
             .padding(.vertical, 4)
         }
         .buttonStyle(.plain)
+        .disabled(item.url == nil)
         .accessibilityLabel(item.title)
         .accessibilityValue([item.summary, item.source].filter { !$0.isEmpty }.joined(separator: ". "))
-        .accessibilityHint(item.url == nil ? "" : "Opens article")
+        .accessibilityHint(item.url == nil ? "No article link" : "Opens the article in the app")
+        .sheet(item: $page) { page in
+            SafariView(url: page.url)
+                .ignoresSafeArea()
+        }
     }
 }
 

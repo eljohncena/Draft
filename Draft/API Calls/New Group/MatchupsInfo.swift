@@ -76,25 +76,71 @@ struct NewsItem: Identifiable, Hashable {
     var imageURL: URL?
     var playerNames: [String]
     var teams: [String]
+    var relatedPlayerIDs: [String] = []
 
     func mentions(player: PlayersInfo) -> Bool {
-        let names = Set(([player.displayName] + playerNames).map { $0.lowercased() }.filter { !$0.isEmpty })
-        if playerNames.contains(where: { $0.compare(player.displayName, options: .caseInsensitive) == .orderedSame }) {
+        if !player.playerID.isEmpty, relatedPlayerIDs.contains(player.playerID) {
             return true
         }
 
+        let tagged = playerNames.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }.filter { !$0.isEmpty }
+        let display = player.displayName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let full = player.fullName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let first = player.firstName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let last = player.lastName.trimmingCharacters(in: .whitespacesAndNewlines)
         let haystack = (title + " " + summary).lowercased()
-        let fullName = player.displayName.lowercased()
-        if fullName.count >= 5 && haystack.contains(fullName) {
+
+        if tagged.contains(where: { Self.sameName($0, display) || Self.sameName($0, full) }) {
             return true
         }
 
-        return names.contains(fullName)
+        if Self.containsPhrase(display, in: haystack) || Self.containsPhrase(full, in: haystack) {
+            return true
+        }
+
+        if first.count >= 2, last.count >= 4,
+           Self.containsWord(first, in: haystack),
+           Self.containsWord(last, in: haystack) {
+            return true
+        }
+
+        if last.count >= 5, tagged.contains(where: { Self.sameName($0, last) }),
+           (first.isEmpty || Self.containsWord(first, in: haystack)) {
+            return true
+        }
+
+        return false
+    }
+
+    private static func sameName(_ lhs: String, _ rhs: String) -> Bool {
+        !lhs.isEmpty && !rhs.isEmpty && lhs.compare(rhs, options: .caseInsensitive) == .orderedSame
+    }
+
+    private static func containsPhrase(_ phrase: String, in haystack: String) -> Bool {
+        let needle = phrase.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard needle.count >= 5 else { return false }
+        return containsWord(needle, in: haystack)
+    }
+
+    private static func containsWord(_ needle: String, in haystack: String) -> Bool {
+        let trimmed = needle.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return false }
+        let escaped = NSRegularExpression.escapedPattern(for: trimmed.lowercased())
+        let pattern = "(?<![\\p{L}\\p{N}])\(escaped)(?![\\p{L}\\p{N}])"
+        return haystack.range(of: pattern, options: .regularExpression) != nil
     }
 
     func mentions(team: String) -> Bool {
         let aliases = NFLTeam.aliases(for: team)
         return teams.contains { aliases.contains($0.uppercased()) }
+    }
+
+    func matches(_ query: String) -> Bool {
+        let needle = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !needle.isEmpty else { return true }
+        let haystack = ([title, summary, source] + playerNames + teams)
+            .joined(separator: " ")
+        return haystack.localizedCaseInsensitiveContains(needle)
     }
 }
 
